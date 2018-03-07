@@ -75,7 +75,7 @@ let createUser = () => {
         firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
             .then((user) => {
                 console.log("user from the createPromise?", user);
-                currentUser = user.uid;
+                currentUser = user;
                 resolve(currentUser)
             })
             .catch((err) => {
