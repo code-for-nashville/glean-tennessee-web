@@ -5,40 +5,46 @@
   <title>Glean TN MAIN</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:700" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-  </head>
-  
-  <body>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="http://endhunger.org/">
-        <img src="http://endhunger.org/wp/wp-content/uploads/Header-New-1100.png" alt="Society of St. Andrew" style="width:400px;height:40px;">
-      </a>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <h1>
-          <a href="/">Glean Tennessee</a>
-        </h1>
-      </div>
-      <div class="row">
-        <div class="col-md">
-          <div class="well">
-            <h2>Submit a Request for Gleaners</h2>
-          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like us to know before we contact you.</h5>
-          <div class="form-group">
-            <label for="extra-detail">Notes:</label>
-            <textarea type="text" class="form-control" id="extra-detail" placeholder="Type and amount of food for donation, location of field, etc."></textarea>
-          </div>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:700" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="http://endhunger.org/">
+      <img src="http://endhunger.org/wp/wp-content/uploads/Header-New-1100.png" alt="Society of St. Andrew" style="width:400px;height:40px;">
+    </a>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <h1>
+        <a href="/">Glean Tennessee</a>
+      </h1>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="well">
+          <h2>Submit a Request for Gleaners</h2>
+          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like us to
+            know before we contact you.</h5>
+          <form method="POST" action="https://formspree.io/sosagleantn@gmail.com">
+            <div class="form-group">
+              <label for="extra-detail">Notes:</label>
+              <textarea name="details" type="text" class="form-control" id="extra-detail" placeholder="Type and amount of food for donation, location of field, etc."></textarea>
+            </div>
+            <div class="hidden">
+              <h1>A BUNCH OF HIDDEN STUFF!!</h1>
+            </div>
+            <button id="submit-btn" type="submit" class="form-control btn btn-success btn-block btn-lg">Submit</button>
+          </form>
         </div>
-        <button id="submit-btn" type="submit" class="btn btn-success btn-block btn-lg">Submit</button>
       </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-auth.js"></script>

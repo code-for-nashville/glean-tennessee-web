@@ -107,5 +107,6 @@ let logoutUser = () => {
 // Save details to DB including timestamp and
 // Send email to sosatn@endhunger.org
 $("#submit-btn").click(() => {
+    
     //something that generates email
 });
