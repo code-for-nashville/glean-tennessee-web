@@ -6,7 +6,7 @@ let FBurl = 'https://gleantn-1794b.firebaseio.com/farmers';
 let currentUser;
 let userObj;
 
-//the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their details to the firebase database
+//the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
 $("#register-btn").click(() => {
     createUser()
         .then(results => {
@@ -15,20 +15,19 @@ $("#register-btn").click(() => {
         .then((data) => {
             loginUser()
         })
+        .catch((err) => console.log(err))
 });
 
-// When a farmer clicks the button, (**get all data from optional fields and)
-// Save details to DB including timestamp and
-// Send email to sosatn@endhunger.org
-$("#submit-btn").click(() => {
-    //something that generates email
-});
 
 $('#login-btn').click(() => {
     userObj = {
         password: $('#in-password').val(),
         email: $('#in-email').val()
     }
+    loginUser(userObj)
+    .then((userDeets)=>{
+        location.href='/glean-request.html'
+    })
 });
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
@@ -45,7 +44,6 @@ let addFarmerProfile = (user) => {
             email: $('#up-email').val(),
             uid: user.uid
         }
-        console.log("farmer profile", farmerObj, "currentUser?");
 
         $.ajax({
             url: `${FBurl}/${user.uid}.json`,
@@ -62,7 +60,7 @@ let addFarmerProfile = (user) => {
     });
 
 };
-
+//authenticate the user with firebase
 let createUser = () => {
     return new Promise((resolve, reject) => {
         userObj = {
@@ -84,9 +82,9 @@ let createUser = () => {
     })
 };
 
-let loginUser = () => {
-    console.log("login user called!", userObj);
+let loginUser = (userObj) => {
     return new Promise((resolve, reject) => {
+        console.log("login user called!", userObj);
         firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
             .then((user) => {
                 currentUser = user.uid;
@@ -104,3 +102,10 @@ let logoutUser = () => {
             console.log("error logging out", err.message);
         });
 };
+
+// When a farmer clicks the button, (**get all data from optional fields and)
+// Save details to DB including timestamp and
+// Send email to sosatn@endhunger.org
+$("#submit-btn").click(() => {
+    //something that generates email
+});
