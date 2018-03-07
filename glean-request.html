@@ -1,1 +1,47 @@
-<h1>THIS PAGE IS A PAGE</h1>
+<!doctype html>
+<html>
+
+<head>
+  <title>Glean TN MAIN</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:700" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="http://endhunger.org/">
+      <img src="http://endhunger.org/wp/wp-content/uploads/Header-New-1100.png" alt="Society of St. Andrew" style="width:400px;height:40px;">
+    </a>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <h1>
+        <a href="/">Glean Tennessee</a>
+      </h1>
+    </div>
+    <div class="row row-1">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well">
+          <h2>Submit a Request for Gleaners</h2>
+          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like us to know before we contact you.</h5>
+          <div class="form-group">
+            <label for="extra-detail">Notes:</label>
+            <textarea type="text" class="form-control" id="extra-detail" placeholder="Type and amount of food for donation, location of field, etc."></textarea>
+          </div>
+        </div>
+        <button id="submit-btn" type="submit" class="btn btn-info btn-large">Submit</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-auth.js"></script>
+  <script type="text/javascript" src="./js/firebase.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>
