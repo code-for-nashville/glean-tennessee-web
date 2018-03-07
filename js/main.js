@@ -32,9 +32,9 @@ $('#login-btn').click( () => {
 });
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
-let addFarmerProfile = (uid) => {
+let addFarmerProfile = (user) => {
 	return new Promise ( (resolve, reject) => {
-		console.log("currentUser?", uid);
+		console.log("currentUser?", user.uid);
 		let farmerObj = {
 			name: $('#name').val(),
 			street: $('#street').val(),
@@ -44,10 +44,10 @@ let addFarmerProfile = (uid) => {
 			phone: $('#phone').val(),
 			email: $('#up-email').val()
 		}
- console.log("farmer profile", farmerObj, "currentUser?", uid);
+ console.log("farmer profile", farmerObj, "currentUser?", user.uid);
 		$.ajax({
-			url: `${FBurl}/${uid}.json`,
-			type: "PUT",
+			url: `${FBurl}/${user.uid}.json`,
+			type: "POST",
 			data: JSON.stringify(farmerObj),
 			dataType: 'json'
 		}).done( (data) => {
@@ -88,7 +88,6 @@ let loginUser = () => {
 		firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
 		.then( (user) => {
 			currentUser = user.uid;
-			location.href='www.google.com';
 			resolve(user);
 		})
 		.catch( (err) => {
