@@ -4,8 +4,19 @@ body {
     background: #bac7a6;
 }
 
+.center-me {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: auto;
+}
+
 .nav-icon {
-    max-height: 50px;
+    max-height: 45px;
+}
+
+#sosa-nav {
+    padding: .15rem 1rem;
 }
 
 h1 {
