@@ -32,12 +32,6 @@ h1>a {
     color: #05010F;
 }
 
-h1>a:hover, .sign-up-offer>a:hover {
-    text-decoration: none;
-    transition-duration: .3s;
-    color: #8A010F;
-}
-
 
 .sign-in-box {
     border-radius: 5px;
@@ -47,9 +41,6 @@ h1>a:hover, .sign-up-offer>a:hover {
 }
 
 .about-us {
-    /* line-height: 1.5;
-    font-size: 1.5em; */
-    /* text-align: center; */
     padding-top: 3%;
 }
 

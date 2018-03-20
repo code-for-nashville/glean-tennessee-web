@@ -10,7 +10,7 @@ if (typeof (Storage) !== "undefined") {
   console.log("Yay, session storage works!")
 } else {
   console.log("There is a problem with storing necessary info!");
-  // Might have to handle this
+  // TODO: handle this
 }
 
 //the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
@@ -18,20 +18,20 @@ $("#register-btn").click(() => {
   createUser()
     .then(results => {
       return addFarmerProfile(results)
-        .then((data) => {
-          console.log("farmer profile made it to fb", data);
-          return loginUser(userObj)
-            .then((userDeets) => {
-              return getFarmerProfile(userDeets.uid)
-                .then((profile) => {
-                  console.log("profile made it")
-                  stickInForm(profile)
-                })
-            })
-        })
     })
-    .catch((err) => console.log(err))
-});
+    .then((data) => {
+      console.log("farmer profile made it to fb", data);
+      return loginUser(userObj)
+    })
+    .then((userDeets) => {
+      return getFarmerProfile(userDeets.uid)
+    })
+    .then((profile) => {
+      console.log("profile made it")
+      stickInForm(profile)
+    })
+    .catch((err) => console.log(err));
+})
 
 
 $('#sign-up-show').click(() => {
@@ -48,16 +48,17 @@ $('#login-btn').click(() => {
   loginUser(userObj)
     .then((userDeets) => {
       return getFarmerProfile(userDeets.uid)
-        .then((profile) => {
-          //set the user details on session storage to pass to the form
-          stickInForm(profile);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+    })
+    .then((profile) => {
+      //set the user details on session storage to pass to the form
+      stickInForm(profile);
+    })
+    .catch((err) => {
+      console.log(err);
     })
 });
 
+// Send email to sosatn@endhunger.org from hidden form fields populated with this data
 let stickInForm = (profile) => {
   sessionStorage.setItem("name", profile.name);
   sessionStorage.setItem("phone", profile.phone);
@@ -159,8 +160,3 @@ let logoutUser = () => {
       console.log("error logging out", err.message);
     });
 };
-
-// When a farmer clicks the submit for gleaning button, (**get all data from optional fields and)
-// Save details to DB including timestamp and
-// Send email to sosatn@endhunger.org
-
