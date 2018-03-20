@@ -59,7 +59,22 @@ h2 {
     color: #05010F;
 }
 
+.fakelink {
+    color: #337ab7;
+    cursor: pointer
+}
+
+.fakelink:hover{
+    text-decoration: none;
+    transition-duration: .3s;
+    color: #8A010F;
+}
+
 .sign-up-offer {
     padding-top: 5px;
     display: block;
+}
+
+.hidden {
+  display: none;
 }

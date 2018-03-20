@@ -15,7 +15,7 @@
       <img src="http://endhunger.org/wp/wp-content/uploads/Header-New-1100.png" alt="Society of St. Andrew" style="width:400px;height:40px;">
     </a>
   </nav>
-  <div class="container">
+  <div class="container sign-in-body">
     <div class="row">
       <h1>
         <a href="/">Glean Tennessee</a>
@@ -25,26 +25,108 @@
       <div class="col-md-6 about-us">
         <p>Thank you for donating to the Society of St. Andrew!</p>
         <p>Our volunteers will pick up or harvest your produce, and we will deliver the food to food banks, churches, pantries,
-          and other agencies at not cost to you.</p>
+          and other agencies at no cost to you.</p>
         <p>Because of your contribution, hungry people will get fresh, nutritious food.</p>
       </div>
       <div class="col-md-4 col-md-offset-1">
         <div class="well">
           <h2>Sign In to Get Started</h2>
-          <form>
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="in-email" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="in-password">Password</label>
-              <input type="password" class="form-control" id="in-password" placeholder="Password">
-            </div>
-            <button id="login-btn" type="submit" class="btn btn-default btn-sub">Submit</button>
-          </form>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="in-email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="in-password">Password</label>
+            <input type="password" class="form-control" id="in-password" placeholder="Password">
+          </div>
+          <button id="login-btn" type="submit" class="btn btn-default btn-sub">Sign in</button>
           <p class="sign-up-offer">First time with the app?
-            <a href="/sign-up.html">Sign up</a>
+            <span id="sign-up-show" class="fakelink"> Sign up</span>
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container sign-up-body hidden">
+    <div class="row">
+      <h1>
+        <a href="/">Glean Tennessee</a>
+      </h1>
+    </div>
+    <div class="row row-1">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well">
+          <h2>Let's Register</h2>
+          <h5>This is the information SoSA will use to get in touch with you.</h5>
+          <form id="registrationForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="up-email">Email address</label>
+              <input type="email" class="form-control" id="up-email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="up-password">Password</label>
+              <input type="password" class="form-control" id="up-password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="(615) 555-5555">
+            </div>
+            <div class="form-group">
+              <label for="street">Street Address</label>
+              <input type="text" class="form-control" id="street" placeholder="123 Main Street">
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" placeholder="Nashville">
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" class="form-control" id="state" placeholder="Tennessee">
+            </div>
+            <div class="form-group">
+              <label for="zip">Zip Code</label>
+              <input type="number" class="form-control" id="zip" placeholder="37211">
+            </div>
+          </form>
+          <button id="register-btn" type="" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container glean-request-body hidden">
+    <div class="row">
+      <h1>
+        <a href="/">Glean Tennessee</a>
+      </h1>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="well">
+          <h2>Submit a Request for Gleaners</h2>
+          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like us to
+            know before we contact you.</h5>
+          <form method="POST" action="https://formspree.io/sosagleantn@gmail.com">
+            <div class="form-group">
+              <label for="extra-detail">Notes:</label>
+              <textarea name="details" type="text" class="form-control" id="extra-detail" placeholder="Type and amount of food for donation, location of field, etc."></textarea>
+            </div>
+            <input type="hidden" id="hidden-subj" name="_subject" value="New request for gleaners!" />
+            <input type="hidden" id="hidden-name" name="name" value="" />
+            <input type="hidden" id="hidden-email" name="email" value="" />
+            <input type="hidden" id="hidden-phone" name="phone_number" value="" />
+            <input type="hidden" id="hidden-address" name="address" value="" />
+            <div class="hidden">
+              <h1 id="hidkey">A BUNCH OF HIDDEN STUFF!!</h1>
+              <div id="profile-to-send">
+
+              </div>
+            </div>
+            <button id="submit-btn" type="submit" class="form-control btn btn-success btn-block btn-lg">Submit</button>
+          </form>
         </div>
       </div>
     </div>

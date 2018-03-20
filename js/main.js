@@ -6,101 +6,161 @@ let FBurl = 'https://gleantn-1794b.firebaseio.com/farmers';
 let currentUser;
 let userObj;
 
-//the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their details to the firebase database
+if (typeof (Storage) !== "undefined") {
+  console.log("Yay, session storage works!")
+} else {
+  console.log("There is a problem with storing necessary info!");
+  // Might have to handle this
+}
+
+//the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
 $("#register-btn").click(() => {
-    createUser()
-        .then(results => {
-            return addFarmerProfile(results)
-        })
+  createUser()
+    .then(results => {
+      return addFarmerProfile(results)
         .then((data) => {
-            loginUser()
+          console.log("farmer profile made it to fb", data);
+          return loginUser(userObj)
+            .then((userDeets) => {
+              return getFarmerProfile(userDeets.uid)
+                .then((profile) => {
+                  console.log("profile made it")
+                  stickInForm(profile)
+                })
+            })
         })
+    })
+    .catch((err) => console.log(err))
 });
 
-// When a farmer clicks the button, (**get all data from optional fields and)
-// Save details to DB including timestamp and
-// Send email to sosatn@endhunger.org
-$("#submit-btn").click(() => {
-    //something that generates email
+
+$('#sign-up-show').click(() => {
+  $('.sign-up-body').removeClass('hidden');
+  $('.sign-in-body').addClass('hidden');
+  $('.glean-request-body').addClass('hidden');
 });
 
 $('#login-btn').click(() => {
-    userObj = {
-        password: $('#in-password').val(),
-        email: $('#in-email').val()
-    }
+  userObj = {
+    password: $('#in-password').val(),
+    email: $('#in-email').val()
+  }
+  loginUser(userObj)
+    .then((userDeets) => {
+      return getFarmerProfile(userDeets.uid)
+        .then((profile) => {
+          //set the user details on session storage to pass to the form
+          stickInForm(profile);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    })
 });
+
+let stickInForm = (profile) => {
+  sessionStorage.setItem("name", profile.name);
+  sessionStorage.setItem("phone", profile.phone);
+  sessionStorage.setItem("email", profile.email);
+  sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
+  console.log("session storage after get profile", sessionStorage);
+  $('.sign-up-body').addClass('hidden');
+  $('.sign-in-body').addClass('hidden');
+  $('.glean-request-body').removeClass('hidden');
+  $('#hidden-name').val(sessionStorage.name);
+  $('#hidden-email').val(sessionStorage.email);
+  $('#hidden-phone').val(sessionStorage.phone);
+  $('#hidden-address').val(sessionStorage.address);
+}
+
+let getFarmerProfile = (uid) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `${FBurl}/${uid}.json`,
+      type: "GET"
+    }).done((data) => {
+      resolve(data);
+    }).fail((error) => {
+      console.log("Error", error);
+      reject(error);
+    });
+  })
+};
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
 let addFarmerProfile = (user) => {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        let farmerObj = {
-            name: $('#name').val(),
-            street: $('#street').val(),
-            city: $('#city').val(),
-            state: $('#state').val(),
-            zip: $('#zip').val(),
-            phone: $('#phone').val(),
-            email: $('#up-email').val(),
-            uid: user.uid
-        }
-        console.log("farmer profile", farmerObj, "currentUser?");
+    let farmerObj = {
+      name: $('#name').val(),
+      street: $('#street').val(),
+      city: $('#city').val(),
+      state: $('#state').val(),
+      zip: $('#zip').val(),
+      phone: $('#phone').val(),
+      email: $('#up-email').val(),
+      uid: user.uid
+    }
 
-        $.ajax({
-            url: `${FBurl}/${user.uid}.json`,
-            type: "PUT",
-            data: JSON.stringify(farmerObj),
-            dataType: 'json'
-        }).done((data) => {
-            resolve(data);
-        }).fail((error) => {
-            console.log("Error", error);
-            reject(error);
-        });
-
+    $.ajax({
+      url: `${FBurl}/${user.uid}.json`,
+      type: "PUT",
+      data: JSON.stringify(farmerObj),
+      dataType: 'json'
+    }).done((data) => {
+      resolve(data);
+    }).fail((error) => {
+      console.log("Error", error);
+      reject(error);
     });
+
+  });
 
 };
 
+//authenticate the user with firebase --Add a new user to the auth list
 let createUser = () => {
-    return new Promise((resolve, reject) => {
-        userObj = {
-            password: $('#up-password').val(),
-            email: $('#up-email').val()
-        }
-        // console.log("firebase?", firebase);
-        // console.log("auth?", firebase.auth);
-        console.log("userObj??", userObj);
-        firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
-            .then((user) => {
-                console.log("user from the createPromise?", user);
-                currentUser = user;
-                resolve(currentUser)
-            })
-            .catch((err) => {
-                reject(err);
-            })
-    })
+  return new Promise((resolve, reject) => {
+    userObj = {
+      password: $('#up-password').val(),
+      email: $('#up-email').val()
+    }
+    firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
+      .then((user) => {
+        console.log("user from the createPromise?", user);
+        currentUser = user;
+        resolve(currentUser)
+      })
+      .catch((err) => {
+        reject(err);
+      })
+  })
 };
 
-let loginUser = () => {
+let loginUser = (userObj) => {
+  return new Promise((resolve, reject) => {
     console.log("login user called!", userObj);
-    return new Promise((resolve, reject) => {
-        firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
-            .then((user) => {
-                currentUser = user.uid;
-                resolve(user);
-            })
-            .catch((err) => {
-                console.log("error logging in", err.message);
-            });
-    });
+    firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
+      .then((profile) => {
+        currentUser = profile.uid;
+        sessionStorage.setItem("user_id", currentUser);
+
+        resolve(profile);
+      })
+      .catch((err) => {
+        console.log("error logging in:", err);
+      });
+  });
 };
 
 let logoutUser = () => {
-    return firebase.auth().signOut()
-        .catch((err) => {
-            console.log("error logging out", err.message);
-        });
+  return firebase.auth().signOut()
+    .catch((err) => {
+      console.log("error logging out", err.message);
+    });
 };
+
+// When a farmer clicks the submit for gleaning button, (**get all data from optional fields and)
+// Save details to DB including timestamp and
+// Send email to sosatn@endhunger.org
+
