@@ -37,6 +37,27 @@ let signUpScreen = () => {
   $('.sign-up-body').removeClass('hidden');
   $('.sign-in-body').addClass('hidden');
   $('.glean-request-body').addClass('hidden');
+  $('#sign-up-nav').addClass('active');
+  $('#log-in-nav').removeClass('active');
+  $('#glean-req-nav').removeClass('active');
+}
+
+let signInScreen = () => {
+  $('.sign-up-body').addClass('hidden');
+  $('.sign-in-body').removeClass('hidden');
+  $('.glean-request-body').addClass('hidden');
+  $('#sign-up-nav').removeClass('active');
+  $('#log-in-nav').addClass('active');
+  $('#glean-req-nav').removeClass('active');
+}
+
+let viewGleanReq = () => {
+  $('.sign-up-body').addClass('hidden');
+  $('.sign-in-body').addClass('hidden');
+  $('.glean-request-body').removeClass('hidden');
+  $('#glean-req-nav').addClass('active');
+  $('#log-in-nav').removeClass('active');
+  $('#sign-up-nav').removeClass('active');
 }
 
 $('#sign-up-show').click(() => {
@@ -45,7 +66,9 @@ $('#sign-up-show').click(() => {
 $('#sign-up-nav').click(() => {
   signUpScreen();
 });
-
+$('#log-in-nav').click(() => {
+  signInScreen();
+});
 
 
 $('#login-btn').click(() => {
@@ -73,14 +96,13 @@ let stickInForm = (profile) => {
   sessionStorage.setItem("email", profile.email);
   sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
   console.log("session storage after get profile", sessionStorage);
-  $('.sign-up-body').addClass('hidden');
-  $('.sign-in-body').addClass('hidden');
-  $('.glean-request-body').removeClass('hidden');
+  viewGleanReq();
   $('#hidden-name').val(sessionStorage.name);
   $('#hidden-email').val(sessionStorage.email);
   $('#hidden-phone').val(sessionStorage.phone);
   $('#hidden-address').val(sessionStorage.address);
 }
+
 
 let getFarmerProfile = (uid) => {
   return new Promise((resolve, reject) => {
