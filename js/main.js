@@ -33,12 +33,20 @@ $("#register-btn").click(() => {
     .catch((err) => console.log(err));
 })
 
-
-$('#sign-up-show').click(() => {
+let signUpScreen = () => {
   $('.sign-up-body').removeClass('hidden');
   $('.sign-in-body').addClass('hidden');
   $('.glean-request-body').addClass('hidden');
+}
+
+$('#sign-up-show').click(() => {
+  signUpScreen();
 });
+$('#sign-up-nav').click(() => {
+  signUpScreen();
+});
+
+
 
 $('#login-btn').click(() => {
   userObj = {
