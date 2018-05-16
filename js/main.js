@@ -26,7 +26,10 @@ $("#register-btn").click(() => {
     .then((profile) => {
       stickInForm(profile)
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log("error in registration", err);
+      window.alert(err.message);
+    })
 })
 
 let signUpScreen = () => {
