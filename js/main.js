@@ -1,6 +1,4 @@
 'use strict';
-console.log("Main js is linked.");
-
 let FBurl = 'https://gleantn-1794b.firebaseio.com/farmers';
 
 let currentUser;
@@ -20,14 +18,12 @@ $("#register-btn").click(() => {
       return addFarmerProfile(results)
     })
     .then((data) => {
-      console.log("farmer profile made it to fb", data);
       return loginUser(userObj)
     })
     .then((userDeets) => {
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
-      console.log("profile made it")
       stickInForm(profile)
     })
     .catch((err) => console.log(err));
@@ -95,7 +91,6 @@ let stickInForm = (profile) => {
   sessionStorage.setItem("phone", profile.phone);
   sessionStorage.setItem("email", profile.email);
   sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
-  console.log("session storage after get profile", sessionStorage);
   viewGleanReq();
   $('#hidden-name').val(sessionStorage.name);
   $('#hidden-email').val(sessionStorage.email);
@@ -158,7 +153,6 @@ let createUser = () => {
     }
     firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
       .then((user) => {
-        console.log("user from the createPromise?", user);
         currentUser = user;
         resolve(currentUser)
       })
@@ -170,7 +164,6 @@ let createUser = () => {
 
 let loginUser = (userObj) => {
   return new Promise((resolve, reject) => {
-    console.log("login user called!", userObj);
     firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
       .then((profile) => {
         currentUser = profile.uid;
