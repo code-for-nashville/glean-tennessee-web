@@ -1,6 +1,4 @@
 'use strict';
-console.log("Main js is linked.");
-
 let FBurl = 'https://gleantn-1794b.firebaseio.com/farmers';
 
 let currentUser;
@@ -10,7 +8,7 @@ if (typeof (Storage) !== "undefined") {
   console.log("Yay, session storage works!")
 } else {
   console.log("There is a problem with storing necessary info!");
-  // Might have to handle this
+  // TODO: handle this
 }
 
 //the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
@@ -18,27 +16,59 @@ $("#register-btn").click(() => {
   createUser()
     .then(results => {
       return addFarmerProfile(results)
-        .then((data) => {
-          console.log("farmer profile made it to fb", data);
-          return loginUser(userObj)
-            .then((userDeets) => {
-              return getFarmerProfile(userDeets.uid)
-                .then((profile) => {
-                  console.log("profile made it")
-                  stickInForm(profile)
-                })
-            })
-        })
     })
-    .catch((err) => console.log(err))
-});
+    .then((data) => {
+      return loginUser(userObj)
+    })
+    .then((userDeets) => {
+      return getFarmerProfile(userDeets.uid)
+    })
+    .then((profile) => {
+      stickInForm(profile)
+    })
+    .catch((err) => {
+      console.log("error in registration", err);
+      window.alert(err.message);
+    })
+})
 
-
-$('#sign-up-show').click(() => {
+let signUpScreen = () => {
   $('.sign-up-body').removeClass('hidden');
   $('.sign-in-body').addClass('hidden');
   $('.glean-request-body').addClass('hidden');
+  $('#sign-up-nav').addClass('active');
+  $('#log-in-nav').removeClass('active');
+  $('#glean-req-nav').removeClass('active');
+}
+
+let signInScreen = () => {
+  $('.sign-up-body').addClass('hidden');
+  $('.sign-in-body').removeClass('hidden');
+  $('.glean-request-body').addClass('hidden');
+  $('#sign-up-nav').removeClass('active');
+  $('#log-in-nav').addClass('active');
+  $('#glean-req-nav').removeClass('active');
+}
+
+let viewGleanReq = () => {
+  $('.sign-up-body').addClass('hidden');
+  $('.sign-in-body').addClass('hidden');
+  $('.glean-request-body').removeClass('hidden');
+  $('#glean-req-nav').addClass('active');
+  $('#log-in-nav').removeClass('active');
+  $('#sign-up-nav').removeClass('active');
+}
+
+$('#sign-up-show').click(() => {
+  signUpScreen();
 });
+$('#sign-up-nav').click(() => {
+  signUpScreen();
+});
+$('#log-in-nav').click(() => {
+  signInScreen();
+});
+
 
 $('#login-btn').click(() => {
   userObj = {
@@ -48,30 +78,29 @@ $('#login-btn').click(() => {
   loginUser(userObj)
     .then((userDeets) => {
       return getFarmerProfile(userDeets.uid)
-        .then((profile) => {
-          //set the user details on session storage to pass to the form
-          stickInForm(profile);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+    })
+    .then((profile) => {
+      //set the user details on session storage to pass to the form
+      stickInForm(profile);
+    })
+    .catch((err) => {
+      console.log(err);
     })
 });
 
+// Send email to sosatn@endhunger.org from hidden form fields populated with this data
 let stickInForm = (profile) => {
   sessionStorage.setItem("name", profile.name);
   sessionStorage.setItem("phone", profile.phone);
   sessionStorage.setItem("email", profile.email);
   sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
-  console.log("session storage after get profile", sessionStorage);
-  $('.sign-up-body').addClass('hidden');
-  $('.sign-in-body').addClass('hidden');
-  $('.glean-request-body').removeClass('hidden');
+  viewGleanReq();
   $('#hidden-name').val(sessionStorage.name);
   $('#hidden-email').val(sessionStorage.email);
   $('#hidden-phone').val(sessionStorage.phone);
   $('#hidden-address').val(sessionStorage.address);
 }
+
 
 let getFarmerProfile = (uid) => {
   return new Promise((resolve, reject) => {
@@ -127,7 +156,6 @@ let createUser = () => {
     }
     firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
       .then((user) => {
-        console.log("user from the createPromise?", user);
         currentUser = user;
         resolve(currentUser)
       })
@@ -139,7 +167,6 @@ let createUser = () => {
 
 let loginUser = (userObj) => {
   return new Promise((resolve, reject) => {
-    console.log("login user called!", userObj);
     firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
       .then((profile) => {
         currentUser = profile.uid;
@@ -159,8 +186,3 @@ let logoutUser = () => {
       console.log("error logging out", err.message);
     });
 };
-
-// When a farmer clicks the submit for gleaning button, (**get all data from optional fields and)
-// Save details to DB including timestamp and
-// Send email to sosatn@endhunger.org
-

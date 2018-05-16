@@ -1,22 +1,22 @@
 body {
     font-family: 'Open Sans', sans-serif;
     color: #05010F;
-    background: rgba(255,255,255,1);
-background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(232,232,232,1)));
-background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%);
-background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%);
-background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%);
-background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e8e8e8', GradientType=0 );
+    background: #bac7a6;
 }
 
-nav {
-    background-color: #A2AF8E;
-    padding-bottom: 15px;
-    -webkit-box-shadow: 0px 4px 25px -9px rgba(14,1,15,1);
-    -moz-box-shadow: 0px 4px 25px -9px rgba(14,1,15,1);
-    box-shadow: 0px 4px 25px -9px rgba(14,1,15,1);
+.center-me {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: auto;
+}
+
+.nav-icon {
+    max-height: 45px;
+}
+
+#sosa-nav {
+    padding: .15rem 1rem;
 }
 
 h1 {
@@ -32,21 +32,15 @@ h1>a {
     color: #05010F;
 }
 
-h1>a:hover, .sign-up-offer>a:hover {
-    text-decoration: none;
-    transition-duration: .3s;
-    color: #8A010F;
-}
 
-.row-1 {
-    margin-top: 5%;
-    margin-bottom: 10%;
+.sign-in-box {
+    border-radius: 5px;
+    border: 1px solid darkolivegreen;
+    margin: 1em;
+    padding: 1em;
 }
 
 .about-us {
-    line-height: 1.5;
-    font-size: 1.5em;
-    text-align: center;
     padding-top: 3%;
 }
 
