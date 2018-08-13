@@ -4,8 +4,7 @@ export default class Login extends Component {
 
 render(){
     return(
-        <React.Fragment>
-            <div className="container sign-in-body">
+  <div className="container sign-in-body">
     <div className="row center-me">
       <div className="sign-in-box">
         <h2>Sign In to Get Started</h2>
@@ -21,17 +20,15 @@ render(){
         <p className="sign-up-offer">First time with the app?
           <span id="sign-up-show" className="fakelink"> Sign up</span>
         </p>
-        </div>
+      </div>
         <div className="about-us">
         <p>Thank you for donating to the Society of St. Andrew!</p>
         <p>Our volunteers will arrive to glean your produce, and we will deliver the food to food banks, churches, pantries,
           and other agencies at no cost to you.</p>
         <p>Because of your contribution, hungry people will get fresh, nutritious food.</p>
+        </div>
       </div>
-        </div>
-        </div>
-
-            </React.Fragment>
+  </div>            
     )
+  }
 }
-}//end of className
