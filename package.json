@@ -2,15 +2,22 @@
   "name": "glean-tennessee-web",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "yarn lint:js",
+    "lint:js": "eslint .",
+    "lint:fix": "prettier --write 'src/**/*.{js,json,jsx}'"
+  },
+  "dependencies": {
+    "prettier": "1.12.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^2.6.0"
   }
 }
