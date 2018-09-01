@@ -1,0 +1,34 @@
+.center-me {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: auto;
+}
+.sign-in-box {
+    border-radius: 5px;
+    border: 1px solid darkolivegreen;
+    margin: 1em;
+    padding: 1em;
+}
+.about-us {
+    padding-top: 3%;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #05010F;
+}
+.fakelink {
+    color: #337ab7;
+    cursor: pointer
+}
+
+.fakelink:hover{
+    text-decoration: none;
+    transition-duration: .3s;
+    color: #8A010F;
+}
