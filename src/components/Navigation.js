@@ -16,8 +16,9 @@ const Navigation = () => (
       data-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup"
       aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon" />
     </button>
 
     <div className="collapse navbar-collapse">
@@ -29,7 +30,10 @@ const Navigation = () => (
           className="nav-item nav-link"
           target="_blank"
           rel="noopener noreferrer"
-          href="http://endhunger.org/">Society of St. Andrew</a>
+          href="http://endhunger.org/"
+        >
+          Society of St. Andrew
+        </a>
       </div>
     </div>
   </nav>

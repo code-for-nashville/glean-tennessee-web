@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, {Component} from 'react'
+import './App.css'
 import Navigation from './components/Navigation.js'
 import Login from"./components/login/Login"
 class App extends Component {
@@ -9,8 +9,8 @@ class App extends Component {
         <Navigation />
         <Login/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
