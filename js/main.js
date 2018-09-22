@@ -46,8 +46,12 @@ let signInScreen = () => {
   $('.sign-in-body').removeClass('hidden');
   $('.glean-request-body').addClass('hidden');
   $('#sign-up-nav').removeClass('active');
+  $('#sign-up-nav').removeClass('hidden');
   $('#log-in-nav').addClass('active');
+  $('#log-in-nav').removeClass('hidden');
+  $('#log-out-nav').addClass('hidden');
   $('#glean-req-nav').removeClass('active');
+  $('#glean-req-nav').addClass('hidden');
 }
 
 let viewGleanReq = () => {
@@ -68,6 +72,9 @@ $('#sign-up-nav').click(() => {
 $('#log-in-nav').click(() => {
   signInScreen();
 });
+$('#log-out-nav').click(() => {
+  logoutUser();
+});
 
 
 $('#login-btn').click(() => {
@@ -80,6 +87,7 @@ $('#login-btn').click(() => {
       $('#glean-req-nav').removeClass('hidden');
       $('#sign-up-nav').addClass('hidden');
       $('#log-in-nav').addClass('hidden');
+      $('#log-out-nav').removeClass('hidden');
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
@@ -189,6 +197,10 @@ let loginUser = (userObj) => {
 
 let logoutUser = () => {
   return firebase.auth().signOut()
+    .then((response) => {
+      signInScreen();
+
+    })
     .catch((err) => {
       console.log("error logging out", err.message);
     });
