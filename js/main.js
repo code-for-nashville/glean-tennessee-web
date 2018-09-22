@@ -96,12 +96,14 @@ let stickInForm = (profile) => {
   sessionStorage.setItem("name", profile.name);
   sessionStorage.setItem("phone", profile.phone);
   sessionStorage.setItem("email", profile.email);
+  sessionStorage.setItem("organic", profile.organic);
   sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
   viewGleanReq();
   $('#hidden-name').val(sessionStorage.name);
   $('#hidden-email').val(sessionStorage.email);
   $('#hidden-phone').val(sessionStorage.phone);
   $('#hidden-address').val(sessionStorage.address);
+  $('#hidden-organic').val(sessionStorage.organic);
 }
 
 
@@ -131,8 +133,10 @@ let addFarmerProfile = (user) => {
       zip: $('#zip').val(),
       phone: $('#phone').val(),
       email: $('#up-email').val(),
+      is_organic: $('#organic').is(':checked'),
       uid: user.uid
     }
+    console.log(farmerObj);
 
     $.ajax({
       url: `${FBurl}/${user.uid}.json`,
