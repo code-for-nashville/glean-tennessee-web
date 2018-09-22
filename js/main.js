@@ -78,6 +78,8 @@ $('#login-btn').click(() => {
   loginUser(userObj)
     .then((userDeets) => {
       $('#glean-req-nav').removeClass('hidden');
+      $('#sign-up-nav').addClass('hidden');
+      $('#log-in-nav').addClass('hidden');
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
