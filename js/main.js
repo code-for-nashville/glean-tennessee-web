@@ -8,7 +8,7 @@ if (typeof (Storage) !== "undefined") {
   console.log("Yay, session storage works!")
 } else {
   console.log("There is a problem with storing necessary info!");
-  // TODO: handle this
+  alert("Unfortunately, local storage is not enabled on this device.");
 }
 
 //the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
@@ -77,6 +77,7 @@ $('#login-btn').click(() => {
   }
   loginUser(userObj)
     .then((userDeets) => {
+      $('#glean-req-nav').removeClass('hidden');
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
