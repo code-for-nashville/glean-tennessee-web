@@ -84,10 +84,7 @@ $('#login-btn').click(() => {
   }
   loginUser(userObj)
     .then((userDeets) => {
-      $('#glean-req-nav').removeClass('hidden');
-      $('#sign-up-nav').addClass('hidden');
-      $('#log-in-nav').addClass('hidden');
-      $('#log-out-nav').removeClass('hidden');
+
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
@@ -186,7 +183,10 @@ let loginUser = (userObj) => {
       .then((profile) => {
         currentUser = profile.uid;
         sessionStorage.setItem("user_id", currentUser);
-
+        $('#glean-req-nav').removeClass('hidden');
+        $('#sign-up-nav').addClass('hidden');
+        $('#log-in-nav').addClass('hidden');
+        $('#log-out-nav').removeClass('hidden');
         resolve(profile);
       })
       .catch((err) => {
