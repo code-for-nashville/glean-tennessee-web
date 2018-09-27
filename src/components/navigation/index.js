@@ -1,7 +1,7 @@
 import React from 'react'
 
-import './Navigation.css'
-import icon from './icon.png'
+import './styles.css'
+import icon from '../../static/icon.png'
 
 const Navigation = () => (
   <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">
