@@ -10,14 +10,14 @@ import routes from './navigation/routes';
 const container = document.getElementById('root')
 
 const renderComponent = (component) => {
-  ReactDOM.render(component, container)
+    ReactDOM.render(component, container)
 }
 
 const render = (location) => {
   router.resolve(routes, location)
     .then(renderComponent)
     .catch(error => router.resolve(routes, { ...location, error }))
-    // .then(renderComponent)
+    .then(renderComponent)
 }
 
 render(history.location) // render the current URL

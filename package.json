@@ -2,6 +2,9 @@
   "name": "glean-tennessee-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "8.11.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
