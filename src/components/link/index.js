@@ -1,4 +1,5 @@
-import history from '../../navigation/history';
+import React from 'react'
+import history from '../../navigation/history'
 
 class Link extends React.Component {
   transition = event => {
@@ -13,6 +14,8 @@ class Link extends React.Component {
     const { href, title } = this.props
     return (
       <a href={href} onClick={this.transition}>{title}</a>
-    );
+    )
   }
 }
+
+export default Link
