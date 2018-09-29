@@ -3,7 +3,7 @@ import queryString from 'query-string'
 // https://medium.freecodecamp.org/you-might-not-need-react-router-38673620f3d
 
 function matchURI(path, uri, search) {
-  const keys = ['test']
+  const keys = []
   const pattern = toRegex(path, keys)
   const match = pattern.exec(uri)
   if (!match) {
