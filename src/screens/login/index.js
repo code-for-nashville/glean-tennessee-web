@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import FirebaseService from '../services/firebase'
 import './styles.css'
 
 export default class Login extends Component {
@@ -13,6 +14,11 @@ export default class Login extends Component {
   onInputChange = (e) => {
     const { value, name } = e.target
     this.setState({[name]: value})
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault()
+    FirebaseService.login()
   }
 
   render() {
@@ -47,6 +53,7 @@ export default class Login extends Component {
               id="login-btn"
               type="submit"
               className="btn btn-default btn-sub"
+              onClick={this.onSubmit}
             >
               Sign in
             </button>
