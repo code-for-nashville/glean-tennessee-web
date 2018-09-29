@@ -2,6 +2,19 @@ import React, {Component} from 'react'
 import './styles.css'
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props) 
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
+  
+  onInputChange = (e) => {
+    const { value, name } = e.target
+    this.setState({[name]: value})
+  }
+
   render() {
     return (
       <div className="container sign-in-body">
@@ -12,18 +25,22 @@ export default class Login extends Component {
               <label htmlFor="email">Email address</label>
               <input
                 type="email"
+                name="email"
                 className="form-control"
                 id="in-email"
                 placeholder="Email"
+                onChange={this.onInputChange}
               />
             </div>
             <div className="form-group">
               <label htmlFor="in-password">Password</label>
               <input
                 type="password"
+                name="password"
                 className="form-control"
                 id="in-password"
                 placeholder="Password"
+                onChange={this.onInputChange}
               />
             </div>
             <button
