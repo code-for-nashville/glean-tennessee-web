@@ -10,7 +10,9 @@ import routes from './navigation/routes';
 const container = document.getElementById('root')
 
 const renderComponent = (component) => {
+  if (component) {
     ReactDOM.render(component, container)
+  }
 }
 
 const render = (location) => {
