@@ -2,9 +2,6 @@
   "name": "glean-tennessee-web",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "8.11.x"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -15,6 +12,7 @@
     "lint:fix": "prettier --write 'src/**/*.{js,json,jsx}'"
   },
   "dependencies": {
+    "firebase": "^5.5.2",
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "prettier": "1.12.1",

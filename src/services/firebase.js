@@ -1,3 +1,5 @@
+import firebase from 'firebase'
+
 var config = {
   apiKey: "AIzaSyAd39Tc5YR1OJMeZbqG8PjzD2DE6sYY0N8",
   authDomain: "gleantn-1794b.firebaseapp.com",
@@ -19,7 +21,7 @@ const FirebaseService = () => {
     return new Promise((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
-          currentUser = user
+          const currentUser = user
           resolve(currentUser)
         })
         .catch((err) => {
@@ -32,9 +34,8 @@ const FirebaseService = () => {
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((profile) => {
-          currentUser = profile.uid
+          const currentUser = profile.uid
           sessionStorage.setItem("user_id", currentUser)
-
           resolve(profile)
         })
         .catch((err) => {
@@ -50,34 +51,14 @@ const FirebaseService = () => {
       })
   }
 
-  const addProfile = (user) => {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: `${FARMER_URL}/${user.uid}.json`,
-        type: "PUT",
-        data: JSON.stringify(farmerObj),
-        dataType: 'json'
-      }).done((data) => {
-        resolve(data)
-      }).fail((error) => {
-        console.log("Error", error)
-        reject(error)
-      })
-    })
+  const addProfile = (user, data) => {
+    return fetch(`${FARMER_URL}/${user.uid}.json`, {method: 'PUT', body: JSON.stringify(data)})
+      .then(response => response.json()).catch(error => error)
   }
 
   const getFarmerProfile = (uid) => {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: `${FARMER_URL}/${uid}.json`,
-        type: "GET"
-      }).done((data) => {
-        resolve(data)
-      }).fail((error) => {
-        console.log("Error", error)
-        reject(error)
-      })
-    })
+    return fetch.then(`${FARMER_URL}/${uid}.json`)
+      .then(response => response.json()).catch(error => error)
   }
 
   return {

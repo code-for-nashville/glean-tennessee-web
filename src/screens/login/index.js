@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import FirebaseService from '../services/firebase'
+import FirebaseService from '../../services/firebase'
 import './styles.css'
 
 export default class Login extends Component {
