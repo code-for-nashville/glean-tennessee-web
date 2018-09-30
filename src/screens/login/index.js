@@ -3,15 +3,15 @@ import './styles.css'
 
 export default class Login extends Component {
   constructor(props) {
-    super(props) 
+    super(props)
     this.state = {
       email: '',
-      password: '',
+      password: ''
     }
   }
-  
-  onInputChange = (e) => {
-    const { value, name } = e.target
+
+  onInputChange = e => {
+    const {value, name} = e.target
     this.setState({[name]: value})
   }
 

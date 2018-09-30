@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 export default class SignUp extends Component {
   render() {
@@ -7,42 +7,86 @@ export default class SignUp extends Component {
         <div className="col-md">
           <div className="well">
             <h2>Let's Register</h2>
-            <h5>This is the information SoSA will use to get in touch with you.</h5>
+            <h5>
+              This is the information SoSA will use to get in touch with you.
+            </h5>
             <form id="registrationForm">
               <div className="form-group">
                 <label htmlFor="name">Name</label>
-                <input type="text" className="form-control" id="name" placeholder="Name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Name"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="up-email">Email address</label>
-                <input type="email" className="form-control" id="up-email" placeholder="Email" />
+                <input
+                  type="email"
+                  className="form-control"
+                  id="up-email"
+                  placeholder="Email"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="up-password">Password</label>
-                <input type="password" className="form-control" id="up-password" placeholder="Password" />
+                <input
+                  type="password"
+                  className="form-control"
+                  id="up-password"
+                  placeholder="Password"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="phone">Phone number</label>
-                <input type="tel" className="form-control" id="phone" placeholder="(615) 555-5555" />
+                <input
+                  type="tel"
+                  className="form-control"
+                  id="phone"
+                  placeholder="(615) 555-5555"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="street">Street Address</label>
-                <input type="text" className="form-control" id="street" placeholder="123 Main Street" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="street"
+                  placeholder="123 Main Street"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="city">City</label>
-                <input type="text" className="form-control" id="city" placeholder="Nashville" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="city"
+                  placeholder="Nashville"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="state">State</label>
-                <input type="text" className="form-control" id="state" placeholder="Tennessee" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="state"
+                  placeholder="Tennessee"
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="zip">Zip Code</label>
-                <input type="number" className="form-control" id="zip" placeholder="37211" />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="zip"
+                  placeholder="37211"
+                />
               </div>
             </form>
-            <button id="register-btn" type="" className="btn btn-default">Submit</button>
+            <button id="register-btn" type="" className="btn btn-default">
+              Submit
+            </button>
           </div>
         </div>
       </div>
