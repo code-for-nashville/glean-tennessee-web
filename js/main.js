@@ -8,7 +8,7 @@ if (typeof (Storage) !== "undefined") {
   console.log("Yay, session storage works!")
 } else {
   console.log("There is a problem with storing necessary info!");
-  // TODO: handle this
+  alert("Unfortunately, local storage is not enabled on this device.");
 }
 
 //the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
@@ -46,8 +46,12 @@ let signInScreen = () => {
   $('.sign-in-body').removeClass('hidden');
   $('.glean-request-body').addClass('hidden');
   $('#sign-up-nav').removeClass('active');
+  $('#sign-up-nav').removeClass('hidden');
   $('#log-in-nav').addClass('active');
+  $('#log-in-nav').removeClass('hidden');
+  $('#log-out-nav').addClass('hidden');
   $('#glean-req-nav').removeClass('active');
+  $('#glean-req-nav').addClass('hidden');
 }
 
 let viewGleanReq = () => {
@@ -68,6 +72,9 @@ $('#sign-up-nav').click(() => {
 $('#log-in-nav').click(() => {
   signInScreen();
 });
+$('#log-out-nav').click(() => {
+  logoutUser();
+});
 
 
 $('#login-btn').click(() => {
@@ -77,6 +84,7 @@ $('#login-btn').click(() => {
   }
   loginUser(userObj)
     .then((userDeets) => {
+
       return getFarmerProfile(userDeets.uid)
     })
     .then((profile) => {
@@ -93,12 +101,14 @@ let stickInForm = (profile) => {
   sessionStorage.setItem("name", profile.name);
   sessionStorage.setItem("phone", profile.phone);
   sessionStorage.setItem("email", profile.email);
+  sessionStorage.setItem("organic", profile.organic);
   sessionStorage.setItem("address", `${profile.street} ${profile.city}, ${profile.state}  ${profile.zip}`);
   viewGleanReq();
   $('#hidden-name').val(sessionStorage.name);
   $('#hidden-email').val(sessionStorage.email);
   $('#hidden-phone').val(sessionStorage.phone);
   $('#hidden-address').val(sessionStorage.address);
+  $('#hidden-organic').val(sessionStorage.organic);
 }
 
 
@@ -128,8 +138,10 @@ let addFarmerProfile = (user) => {
       zip: $('#zip').val(),
       phone: $('#phone').val(),
       email: $('#up-email').val(),
+      is_organic: $('#organic').is(':checked'),
       uid: user.uid
     }
+    console.log(farmerObj);
 
     $.ajax({
       url: `${FBurl}/${user.uid}.json`,
@@ -171,7 +183,10 @@ let loginUser = (userObj) => {
       .then((profile) => {
         currentUser = profile.uid;
         sessionStorage.setItem("user_id", currentUser);
-
+        $('#glean-req-nav').removeClass('hidden');
+        $('#sign-up-nav').addClass('hidden');
+        $('#log-in-nav').addClass('hidden');
+        $('#log-out-nav').removeClass('hidden');
         resolve(profile);
       })
       .catch((err) => {
@@ -182,6 +197,10 @@ let loginUser = (userObj) => {
 
 let logoutUser = () => {
   return firebase.auth().signOut()
+    .then((response) => {
+      signInScreen();
+
+    })
     .catch((err) => {
       console.log("error logging out", err.message);
     });

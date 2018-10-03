@@ -12,7 +12,7 @@
 
 <body>
   <nav style="background-color: #444;" id="sosa-nav" class="navbar navbar-expand-md navbar-dark">
-    <a class="navbar-brand" href="http://endhunger.org/">
+    <a class="navbar-brand" href="https://endhunger.org/">
       <img class="img-fluid nav-icon" src="\img\SOSAheadericon.png">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -22,9 +22,10 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" id="log-in-nav" href="#">Log In</a>
+        <a class="nav-item nav-link hidden" id="log-out-nav" href="#">Log Out</a>
         <a class="nav-item nav-link" id="sign-up-nav" href="#">Register</a>
         <!-- <a class="nav-item nav-link" href="#">Profile</a> -->
-        <a class="nav-item nav-link" id="glean-req-nav" href="#">Gleaning Request</a>
+        <a class="nav-item nav-link hidden" id="glean-req-nav" href="#">Gleaning Request</a>
         <a class="nav-item nav-link" target="_blank" href="http://endhunger.org/">Society of St. Andrew</a>
       </div>
     </div>
@@ -47,24 +48,20 @@
         </p>
       </div>
       <div class="about-us">
-        <p>Thank you for donating to the Society of St. Andrew!</p>
-        <p>Our volunteers will arrive to glean your produce, and we will deliver the food to food banks, churches, pantries,
-          and other agencies at no cost to you.</p>
+        <p>Please sign in (or register) to submit a glean request.</p>
+        <p>Once you submit a glean request, the Society of St. Andrew office will be in touch to make arrangements to
+          pick up your donation.</p>
         <p>Because of your contribution, hungry people will get fresh, nutritious food.</p>
       </div>
     </div>
   </div>
   <div class="container sign-up-body hidden">
-    <div class="row">
-      <h1>
-        <a href="/">Glean Tennessee</a>
-      </h1>
-    </div>
+    -->
     <div class="row">
       <div class="col-md">
         <div class="well">
-          <h2>Let's Register</h2>
-          <h5>This is the information SoSA will use to get in touch with you.</h5>
+          <h2>Register</h2>
+          <h5>This is the information SoSA will use to get in touch with you and coordinate pickup.</h5>
           <form id="registrationForm">
             <div class="form-group">
               <label for="name">Name</label>
@@ -96,7 +93,11 @@
             </div>
             <div class="form-group">
               <label for="zip">Zip Code</label>
-              <input type="number" class="form-control" id="zip" placeholder="37211">
+              <input type="number" class="form-control" id="zip" placeholder="37211" required>
+            </div>
+            <div class="form-group">
+              <label for="organic">My produce is organic: </label>
+              <input type="checkbox" id="organic">
             </div>
           </form>
           <button id="register-btn" type="" class="btn btn-default">Submit</button>
@@ -105,16 +106,13 @@
     </div>
   </div>
   <div class="container glean-request-body hidden">
-    <div class="row">
-      <h1>
-        <a href="/">Glean Tennessee</a>
-      </h1>
-    </div>
+
     <div class="row">
       <div class="col-md">
         <div class="well">
           <h2>Submit a Request for Gleaners</h2>
-          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like us to
+          <h5>The Society of St. Andrew will contact you to set up gleaning! Please provide any details you would like
+            us to
             know before we contact you.</h5>
           <form method="POST" action="https://formspree.io/sosagleantn@gmail.com">
             <div class="form-group">
@@ -126,6 +124,7 @@
             <input type="hidden" id="hidden-email" name="email" value="" />
             <input type="hidden" id="hidden-phone" name="phone_number" value="" />
             <input type="hidden" id="hidden-address" name="address" value="" />
+            <input type="hidden" id="hidden-organic" name="organix" value="" />
             <button id="submit-btn" type="submit" class="form-control btn btn-primary btn-block btn-lg">Submit</button>
           </form>
         </div>

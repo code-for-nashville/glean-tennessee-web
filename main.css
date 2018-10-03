@@ -65,8 +65,10 @@ h2 {
 }
 
 .sign-up-offer {
-    padding-top: 5px;
+    padding-top: 25px;
     display: block;
+    font-size: larger;
+
 }
 
 .hidden {
