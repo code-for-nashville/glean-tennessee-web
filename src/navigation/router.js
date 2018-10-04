@@ -1,5 +1,7 @@
+import React from 'react'
 import toRegex from 'path-to-regexp'
 import queryString from 'query-string'
+import App from '../App'
 // https://medium.freecodecamp.org/you-might-not-need-react-router-38673620f3d
 
 function matchURI(path, uri, search) {
@@ -19,9 +21,13 @@ const resolve = async (routes, context) => {
     const search = context.search
     const params = matchURI(route.path, uri, search)
     if (!params) continue // Null was returned so no route was found, keep looking
-    const result = await route.action({params})
-
-    if (result) return result
+    const result = await route.action({ params })
+    const AppComponent = (
+      <App>
+        {result}
+      </App>
+    )
+    if (result) return AppComponent
   }
   const error = new Error('Not found')
   error.status = 404
