@@ -11,7 +11,7 @@ export default class SignUp extends Component {
 
   onSubmit = e => {
     e.preventDefault()
-    console.log("The submit button was pushed");
+    console.log('The submit button was pushed')
     //TODO - link up to firebase stuff
   }
 
