@@ -6,8 +6,13 @@ export default class Login extends Component {
     super(props)
     this.state = {
       email: '',
+      emailError: '',
       password: ''
     }
+  }
+  validateEmail = email => {
+    const regex = /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._\+-])*([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/
+    return !regex.test(email) ? 'Enter a valid email address' : ''
   }
 
   onInputChange = e => {
@@ -15,22 +20,36 @@ export default class Login extends Component {
     this.setState({[name]: value})
   }
 
+  onEmailBlur = () => {
+    const {email} = this.state
+    const emailError = this.validateEmail(email)
+    return this.setState({emailError})
+  }
+
   render() {
+    const {emailError} = this.state
+    const emailErrorDiv = emailError ? (
+      <div id="emailError">{emailError}</div>
+    ) : null
     return (
       <div className="container sign-in-body">
         <div className="row center-me">
           <div className="sign-in-box">
             <h2>Sign In to Get Started</h2>
             <div className="form-group">
-              <label htmlFor="email">Email address</label>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                id="in-email"
-                placeholder="Email"
-                onChange={this.onInputChange}
-              />
+              <label htmlFor="email">
+                Email address
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  id="in-email"
+                  placeholder="Email"
+                  onChange={this.onInputChange}
+                  onBlur={this.onEmailBlur}
+                />
+                {emailErrorDiv}
+              </label>
             </div>
             <div className="form-group">
               <label htmlFor="in-password">Password</label>
