@@ -17,8 +17,7 @@ const render = location => {
   router
     .resolve(routes, location)
     .then(renderComponent)
-    .catch(error => router.resolve(routes, {...location, error}))
-    .then(renderComponent)
+    .catch(renderComponent)
 }
 
 render(history.location) // render the current URL
