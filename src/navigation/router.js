@@ -16,8 +16,8 @@ function matchURI(path, uri, search) {
 }
 
 const resolve = async (routesObj, context) => {
-  const uri = context.error ? errorRoutes['404'].path : context.pathname
   const {success: routes, error: errorRoutes} = routesObj
+  const uri = context.error ? errorRoutes['404'].path : context.pathname
   const search = context.search
   for (const route of routes) {
     const params = matchURI(route.path, uri, search)
