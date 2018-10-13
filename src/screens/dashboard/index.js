@@ -4,9 +4,9 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div class="row">
-          <div class="col-md">
-            <div class="well">
+        <div className="row">
+          <div className="col-md">
+            <div className="well">
               <h2>Submit a Request for Gleaners</h2>
               <h5>
                 The Society of St. Andrew will contact you to set up gleaning!
@@ -17,12 +17,12 @@ export default class Dashboard extends Component {
                 method="POST"
                 action="https://formspree.io/sosagleantn@gmail.com"
               >
-                <div class="form-group">
-                  <label for="extra-detail">Notes:</label>
+                <div className="form-group">
+                  <label htmlFor="extra-detail">Notes:</label>
                   <textarea
                     name="details"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="extra-detail"
                     placeholder="Type and amount of food for donation, location of field, etc."
                   />
@@ -50,7 +50,7 @@ export default class Dashboard extends Component {
                 <button
                   id="submit-btn"
                   type="submit"
-                  class="form-control btn btn-primary btn-block btn-lg"
+                  className="form-control btn btn-primary btn-block btn-lg"
                 >
                   Submit
                 </button>

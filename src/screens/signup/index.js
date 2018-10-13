@@ -1,90 +1,112 @@
 import React, {Component} from 'react'
 
 export default class SignUp extends Component {
+  state = {}
+
+  onInputChange = e => {
+    const stateToChange = {}
+    stateToChange[e.target.id] = e.target.value
+    this.setState(stateToChange)
+  }
+
+  onSubmit = e => {
+    e.preventDefault()
+    console.log('The submit button was pushed')
+    //TODO - link up to firebase stuff
+  }
+
   render() {
     return (
-      <div class="row">
-        <div class="col-md">
-          <div class="well">
-            <h2>Let's Register</h2>
+      <div className="row">
+        <div className="col-md">
+          <div className="well">
+            <h2>Register as a new user</h2>
             <h5>
               This is the information SoSA will use to get in touch with you.
             </h5>
-            <form id="registrationForm">
-              <div class="form-group">
-                <label for="name">Name</label>
+            <form id="registrationForm" onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
                 <input
+                  onChange={this.onInputChange}
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="name"
                   placeholder="Name"
                 />
               </div>
-              <div class="form-group">
-                <label for="up-email">Email address</label>
+              <div className="form-group">
+                <label htmlFor="up-email">Email address</label>
                 <input
+                  onChange={this.onInputChange}
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="up-email"
                   placeholder="Email"
                 />
               </div>
-              <div class="form-group">
-                <label for="up-password">Password</label>
+              <div className="form-group">
+                <label htmlFor="up-password">Password</label>
                 <input
                   type="password"
-                  class="form-control"
+                  onChange={this.onInputChange}
+                  className="form-control"
                   id="up-password"
                   placeholder="Password"
                 />
               </div>
-              <div class="form-group">
-                <label for="phone">Phone number</label>
+              <div className="form-group">
+                <label htmlFor="phone">Phone number</label>
                 <input
                   type="tel"
-                  class="form-control"
+                  className="form-control"
+                  onChange={this.onInputChange}
                   id="phone"
                   placeholder="(615) 555-5555"
                 />
               </div>
-              <div class="form-group">
-                <label for="street">Street Address</label>
+              <div className="form-group">
+                <label htmlFor="street">Street Address</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
+                  onChange={this.onInputChange}
                   id="street"
                   placeholder="123 Main Street"
                 />
               </div>
-              <div class="form-group">
-                <label for="city">City</label>
+              <div className="form-group">
+                <label htmlFor="city">City</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
+                  onChange={this.onInputChange}
                   id="city"
                   placeholder="Nashville"
                 />
               </div>
-              <div class="form-group">
-                <label for="state">State</label>
+              <div className="form-group">
+                <label htmlFor="state">State</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
+                  onChange={this.onInputChange}
                   id="state"
                   placeholder="Tennessee"
                 />
               </div>
-              <div class="form-group">
-                <label for="zip">Zip Code</label>
+              <div className="form-group">
+                <label htmlFor="zip">Zip Code</label>
                 <input
                   type="number"
-                  class="form-control"
+                  className="form-control"
+                  onChange={this.onInputChange}
                   id="zip"
                   placeholder="37211"
                 />
               </div>
             </form>
-            <button id="register-btn" type="" class="btn btn-default">
+            <button id="register-btn" type="submit" className="btn btn-default">
               Submit
             </button>
           </div>
