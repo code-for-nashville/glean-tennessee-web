@@ -1,8 +1,8 @@
-import history from '../../navigation/history';
+import history from '../../navigation/history'
 
 class Link extends React.Component {
   transition = event => {
-    event.preventDefault();
+    event.preventDefault()
     history.push({
       pathname: event.currentTarget.pathname,
       search: event.currentTarget.search
@@ -10,9 +10,11 @@ class Link extends React.Component {
   }
 
   render() {
-    const { href, title } = this.props
+    const {href, title} = this.props
     return (
-      <a href={href} onClick={this.transition}>{title}</a>
-    );
+      <a href={href} onClick={this.transition}>
+        {title}
+      </a>
+    )
   }
 }

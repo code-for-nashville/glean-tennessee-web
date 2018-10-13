@@ -1,5 +1,3 @@
 import Navigation from './navigation'
 
-export {
-  Button,
-}
+export {Button}
