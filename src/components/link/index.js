@@ -19,8 +19,5 @@ class Link extends React.Component {
     )
   }
 }
-<<<<<<< HEAD
-=======
 
 export default Link
->>>>>>> 6f3bf145a409de4e39b09f94a0fbdf36d18fc0b8
