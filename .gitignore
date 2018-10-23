@@ -3,3 +3,7 @@ node_modules
 .vscode/
 
 yarn-error.log
+
+firebase.json
+.firebaserc
+public/
