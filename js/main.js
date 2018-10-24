@@ -15,6 +15,7 @@ if (typeof (Storage) !== "undefined") {
 $("#register-btn").click(() => {
   createUser()
     .then(results => {
+      console.log(results)
       return addFarmerProfile(results)
     })
     .then((data) => {
@@ -128,36 +129,89 @@ let getFarmerProfile = (uid) => {
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
 let addFarmerProfile = (user) => {
-  return new Promise((resolve, reject) => {
+  console.log("user???", user)
+  var postData = {
+    name: $('#name').val(),
+    street: $('#street').val(),
+    city: $('#city').val(),
+    state: $('#state').val(),
+    zip: $('#zip').val(),
+    phone: $('#phone').val(),
+    email: $('#up-email').val(),
+    is_organic: $('#organic').is(':checked'),
+    uid: user.user.uid
+  }
+  console.log(postData);
+  var newPostKey = firebase.database().ref().child('farmers').push().key;
+  console.log(newPostKey);
+  var updates = {};
+  updates['/farmers/' + user.user.uid] = postData;
+console.log(firebase.database().ref)
+  return firebase.database().ref().update(updates);
 
-    let farmerObj = {
-      name: $('#name').val(),
-      street: $('#street').val(),
-      city: $('#city').val(),
-      state: $('#state').val(),
-      zip: $('#zip').val(),
-      phone: $('#phone').val(),
-      email: $('#up-email').val(),
-      is_organic: $('#organic').is(':checked'),
-      uid: user.uid
-    }
-    console.log(farmerObj);
+}
 
-    $.ajax({
-      url: `${FBurl}/${user.uid}.json`,
-      type: "PUT",
-      data: JSON.stringify(farmerObj),
-      dataType: 'json'
-    }).done((data) => {
-      resolve(data);
-    }).fail((error) => {
-      console.log("Error", error);
-      reject(error);
-    });
+// function writeNewPost(uid, username, picture, title, body) {
+//   // A post entry.
+//   var postData = {
+//     author: username,
+//     uid: uid,
+//     body: body,
+//     title: title,
+//     starCount: 0,
+//     authorPic: picture
+//   };
 
-  });
+//   // Get a key for a new Post.
+//   var newPostKey = firebase.database().ref().child('posts').push().key;
 
-};
+//   // Write the new post's data simultaneously in the posts list and the user's post list.
+//   var updates = {};
+//   updates['/posts/' + newPostKey] = postData;
+//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+//   return firebase.database().ref().update(updates);
+// }
+
+// function writeUserData(userId, name, email, imageUrl) {
+//   firebase.database().ref('users/' + userId).set({
+//     username: name,
+//     email: email,
+//     profile_picture: imageUrl
+//   });
+// }
+
+// let addFarmerProfile = (user) => {
+//   return new Promise((resolve, reject) => {
+
+//     let farmerObj = {
+//       name: $('#name').val(),
+//       street: $('#street').val(),
+//       city: $('#city').val(),
+//       state: $('#state').val(),
+//       zip: $('#zip').val(),
+//       phone: $('#phone').val(),
+//       email: $('#up-email').val(),
+//       is_organic: $('#organic').is(':checked'),
+//       uid: user.uid
+//     }
+//     console.log(farmerObj);
+
+//     $.ajax({
+//       url: `${FBurl}/${user.uid}.json`,
+//       type: "PUT",
+//       data: JSON.stringify(farmerObj),
+//       dataType: 'json'
+//     }).done((data) => {
+//       resolve(data);
+//     }).fail((error) => {
+//       console.log("Error", error);
+//       reject(error);
+//     });
+
+//   });
+
+// };
 
 //authenticate the user with firebase --Add a new user to the auth list
 let createUser = () => {
