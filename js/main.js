@@ -91,7 +91,6 @@ $('#login-btn').click(() => {
     .then((snapshot) => {
       let profileObj = snapshot.val();
       stickInForm(profileObj)
-
       //set the user details on session storage to pass to the form
     })
     .catch((err) => {
@@ -115,40 +114,13 @@ let stickInForm = (profile) => {
 }
 
 //upon login we get the profile data of the user so we can attach it to the notification email 
-
-// var userId = firebase.auth().currentUser.uid;
-// return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-//   // ...
-// });
-
 let getFarmerProfile = (uid) => {
   return firebase.database().ref('/farmers/' + uid).once('value')
-    // .then(function(snapshot) {
-    //   let profileObj = snapshot.val();
-    //   console.log("profileObj", profileObj);
-    // })
 };
-// let getFarmerProfile = (uid) => {
-//   return new Promise((resolve, reject) => {
-//     $.ajax({
-//       url: `${FBurl}/${uid}.json`,
-//       type: "GET"
-//     }).done((data) => {
-//       resolve(data);
-//     }).fail((error) => {
-//       console.log("Error", error);
-//       reject(error);
-//     });
-//   })
-// };
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
 //the user passed in here comes from the completion of the firebase auth method of registering a new user.
 let addFarmerProfile = (user) => {
-  // return new Promise((resolve, reject) => {
-
-
     var postData = {
       name: $('#name').val(),
       street: $('#street').val(),
@@ -164,8 +136,6 @@ let addFarmerProfile = (user) => {
     var updates = {};
     updates[`/farmers/${user.user.uid}`] = postData;
     return firebase.database().ref().update(updates)
-     
-  // })
 }
 
 //authenticate the user with firebase --Add a new user to the auth list
