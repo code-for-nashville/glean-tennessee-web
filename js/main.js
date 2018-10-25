@@ -15,17 +15,18 @@ if (typeof (Storage) !== "undefined") {
 $("#register-btn").click(() => {
   createUser()
     .then(results => {
-      console.log(results)
+      console.log("createUser results", results)
       return addFarmerProfile(results)
     })
-    .then((data) => {
+    .then(() => {
       return loginUser(userObj)
     })
     .then((userDeets) => {
-      return getFarmerProfile(userDeets.uid)
+      return getFarmerProfile(userDeets.user.uid)
     })
-    .then((profile) => {
-      stickInForm(profile)
+    .then((snapshot) => {
+      let profileObj = snapshot.val();
+      stickInForm(profileObj)
     })
     .catch((err) => {
       console.log("error in registration", err);
@@ -85,12 +86,13 @@ $('#login-btn').click(() => {
   }
   loginUser(userObj)
     .then((userDeets) => {
-
-      return getFarmerProfile(userDeets.uid)
+      return getFarmerProfile(userDeets.user.uid)
     })
-    .then((profile) => {
+    .then((snapshot) => {
+      let profileObj = snapshot.val();
+      stickInForm(profileObj)
+
       //set the user details on session storage to pass to the form
-      stickInForm(profile);
     })
     .catch((err) => {
       console.log(err);
@@ -112,38 +114,58 @@ let stickInForm = (profile) => {
   $('#hidden-organic').val(sessionStorage.organic);
 }
 
+//upon login we get the profile data of the user so we can attach it to the notification email 
+
+// var userId = firebase.auth().currentUser.uid;
+// return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+//   // ...
+// });
 
 let getFarmerProfile = (uid) => {
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      url: `${FBurl}/${uid}.json`,
-      type: "GET"
-    }).done((data) => {
-      resolve(data);
-    }).fail((error) => {
-      console.log("Error", error);
-      reject(error);
-    });
-  })
+  return firebase.database().ref('/farmers/' + uid).once('value')
+    // .then(function(snapshot) {
+    //   let profileObj = snapshot.val();
+    //   console.log("profileObj", profileObj);
+    // })
 };
+// let getFarmerProfile = (uid) => {
+//   return new Promise((resolve, reject) => {
+//     $.ajax({
+//       url: `${FBurl}/${uid}.json`,
+//       type: "GET"
+//     }).done((data) => {
+//       resolve(data);
+//     }).fail((error) => {
+//       console.log("Error", error);
+//       reject(error);
+//     });
+//   })
+// };
 
 //on click of "register" button, capture what's in fields and store as object, send to FB, then send to next page
+//the user passed in here comes from the completion of the firebase auth method of registering a new user.
 let addFarmerProfile = (user) => {
-  var postData = {
-    name: $('#name').val(),
-    street: $('#street').val(),
-    city: $('#city').val(),
-    state: $('#state').val(),
-    zip: $('#zip').val(),
-    phone: $('#phone').val(),
-    email: $('#up-email').val(),
-    is_organic: $('#organic').is(':checked'),
-    uid: user.user.uid
-  }
-  //set up the updates object since we do not want to create a new FB key -- just want to use the uid as the key.
-  var updates = {};
-  updates[`/farmers/${user.user.uid}`] = postData;
-  return firebase.database().ref().update(updates);
+  // return new Promise((resolve, reject) => {
+
+
+    var postData = {
+      name: $('#name').val(),
+      street: $('#street').val(),
+      city: $('#city').val(),
+      state: $('#state').val(),
+      zip: $('#zip').val(),
+      phone: $('#phone').val(),
+      email: $('#up-email').val(),
+      is_organic: $('#organic').is(':checked'),
+      uid: user.user.uid
+    }
+    //set up the updates object since we do not want to create a new FB key -- just want to use the (auth) uid as the key.
+    var updates = {};
+    updates[`/farmers/${user.user.uid}`] = postData;
+    return firebase.database().ref().update(updates)
+     
+  // })
 }
 
 //authenticate the user with firebase --Add a new user to the auth list
