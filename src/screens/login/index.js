@@ -21,7 +21,7 @@ export default class Login extends Component {
     this.setState({[name]: value})
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault()
     FirebaseService.login()
   }
