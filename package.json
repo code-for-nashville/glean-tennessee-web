@@ -12,6 +12,7 @@
     "lint:fix": "prettier --write 'src/**/*.{js,json,jsx}'"
   },
   "dependencies": {
+    "firebase": "^5.5.2",
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "prettier": "1.12.1",
