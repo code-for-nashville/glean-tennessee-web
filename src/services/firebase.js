@@ -56,19 +56,9 @@ const FirebaseService = () => {
   }
 
   // data: { name: string, street: string, city: string, state: string, zip: string, phone: string, email: string, is_organic: boolean, uid: string, uid: string }
-  const addProfile = ({user, data}) =>
-    fetch(`${USER_URL}/${user.uid}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .catch(error => error)
-
-  const getUserProfile = uid =>
-    fetch
-      .then(`${USER_URL}/${uid}.json`)
-      .then(response => response.json())
-      .catch(error => error)
+  const addProfile = ({userId, data}) => firebase.database().ref('users/' + userId).update(data)
+  
+  const getUserProfile = userId => firebase.database().ref('/users/' + userId).once('value')
 
   return {
     signup,
