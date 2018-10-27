@@ -16,16 +16,15 @@ function matchURI(path, uri, search) {
 }
 
 const resolve = async (routesObj, context) => {
-  const uri = context.error ? errorRoutes['404'].path : context.pathname
   const {success: routes, error: errorRoutes} = routesObj
+  const uri = context.error ? errorRoutes['404'].path : context.pathname
   const search = context.search
   for (const route of routes) {
     const params = matchURI(route.path, uri, search)
     if (!params) continue // Null was returned so no route was found, keep looking
     const result = await route.action({params})
-    if (result) {
-      return <App>{result}</App>
-    }
+    const AppComponent = <App>{result}</App>
+    if (result) return AppComponent
   }
   const params = matchURI(uri, uri, search)
   const result = errorRoutes['404'].action({params})
