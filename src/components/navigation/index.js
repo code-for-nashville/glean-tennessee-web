@@ -23,14 +23,20 @@ const Navigation = () => (
 
     <div className="collapse navbar-collapse">
       <div className="navbar-nav">
-        <a className="nav-item nav-link active">Log In</a>
-        <a className="nav-item nav-link">Register</a>
-        <a className="nav-item nav-link">Gleaning Request</a>
+        <a className="nav-item nav-link active" href="/login">
+          Log In
+        </a>
+        <a className="nav-item nav-link" href="/signup">
+          Register
+        </a>
+        <a className="nav-item nav-link" href="/dashboard">
+          Gleaning Request
+        </a>
         <a
           className="nav-item nav-link"
           target="_blank"
           rel="noopener noreferrer"
-          href="http://endhunger.org/"
+          href="https://endhunger.org/"
         >
           Society of St. Andrew
         </a>
