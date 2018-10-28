@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 const UserContext = React.createContext({
   user: {},
-  setUser: () => { }
+  setUser: () => {}
 })
 
 export function withUserContextConsumer(WrappedComponent) {
@@ -10,7 +10,7 @@ export function withUserContextConsumer(WrappedComponent) {
     render() {
       return (
         <UserContext.Consumer>
-          {({ setUser }) => (
+          {({setUser}) => (
             <WrappedComponent
               {...this.props}
               onClick={this.props.onClick.bind(this, setUser)}
