@@ -11,7 +11,7 @@ class Link extends React.Component {
   }
 
   render() {
-    const { title } = this.props
+    const {title} = this.props
     return (
       <a onClick={this.transition} {...this.props}>
         {title}

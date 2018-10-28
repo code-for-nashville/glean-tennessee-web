@@ -23,9 +23,17 @@ const Navigation = () => (
 
     <div className="collapse navbar-collapse">
       <div className="navbar-nav">
-        <Link className="nav-item nav-link active" href="/login" title={'Log In'} />
-        <Link className="nav-item nav-link" href="/signup" title={'Register'}/>
-        <Link className="nav-item nav-link" href="/dashboard" title={'Gleaning Request'} />
+        <Link
+          className="nav-item nav-link active"
+          href="/login"
+          title={'Log In'}
+        />
+        <Link className="nav-item nav-link" href="/signup" title={'Register'} />
+        <Link
+          className="nav-item nav-link"
+          href="/dashboard"
+          title={'Gleaning Request'}
+        />
         <Link
           className="nav-item nav-link"
           target="_blank"
