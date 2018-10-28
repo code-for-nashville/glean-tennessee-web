@@ -1,3 +1,4 @@
 import Navigation from './navigation'
-
-export {Navigation}
+import Link from './link'
+import SetUserButton from './set-user-button'
+export { Navigation, SetUserButton, Link }
