@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import FirebaseService from '../../services/firebase'
+import {login} from '../../helpers'
+import history from '../../navigation/history'
+import {SetUserButton} from '../../components'
 import './styles.css'
 
 export default class Login extends Component {
@@ -21,9 +23,17 @@ export default class Login extends Component {
     this.setState({[name]: value})
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    FirebaseService.login()
+  onSubmit = async setUser => {
+    const {email, password} = this.state
+    if (email && password) {
+      const [response, loginError] = await login(email, password)
+      if (loginError) {
+        this.setState({loginError})
+      } else if (response) {
+        setUser(response.user)
+        history.push('/dashboard')
+      }
+    }
   }
 
   onEmailBlur = () => {
@@ -68,14 +78,13 @@ export default class Login extends Component {
                 onChange={this.onInputChange}
               />
             </div>
-            <button
+            <SetUserButton
               id="login-btn"
               type="submit"
               className="btn btn-default btn-sub"
               onClick={this.onSubmit}
-            >
-              Sign in
-            </button>
+              text={'Sign in'}
+            />
             <p className="sign-up-offer">
               First time with the app?
               <span id="sign-up-show" className="fakelink">

@@ -1,7 +1,17 @@
 import React, {Component} from 'react'
-
+import {signup} from '../../helpers'
+import history from '../../navigation/history'
+import {SetUserButton} from '../../components'
 export default class SignUp extends Component {
-  state = {}
+  state = {
+    name: '',
+    street: '',
+    zip: '',
+    phone: '',
+    email: '',
+    password: '',
+    error: null
+  }
 
   onInputChange = e => {
     const stateToChange = {}
@@ -9,10 +19,17 @@ export default class SignUp extends Component {
     this.setState(stateToChange)
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    console.log('The submit button was pushed')
-    //TODO - link up to firebase stuff
+  onSubmit = async setUser => {
+    const data = {
+      ...this.state
+    }
+    const [response, error] = await signup(data)
+    if (error) {
+      this.setState({error})
+    } else if (response) {
+      setUser(response)
+      history.push('/dashboard')
+    }
   }
 
   render() {
@@ -41,7 +58,7 @@ export default class SignUp extends Component {
                   onChange={this.onInputChange}
                   type="email"
                   className="form-control"
-                  id="up-email"
+                  id="email"
                   placeholder="Email"
                 />
               </div>
@@ -51,7 +68,7 @@ export default class SignUp extends Component {
                   type="password"
                   onChange={this.onInputChange}
                   className="form-control"
-                  id="up-password"
+                  id="password"
                   placeholder="Password"
                 />
               </div>
@@ -106,9 +123,13 @@ export default class SignUp extends Component {
                 />
               </div>
             </form>
-            <button id="register-btn" type="submit" className="btn btn-default">
-              Submit
-            </button>
+            <SetUserButton
+              id="register-btn"
+              type="submit"
+              className="btn btn-default"
+              text={'Submit'}
+              onClick={this.onSubmit}
+            />
           </div>
         </div>
       </div>

@@ -7,15 +7,36 @@ import FourOhFour from '../screens/four-oh-four'
 
 const routes = {
   success: [
-    {path: '/', action: ({params}) => <Home params={params} />},
-    {path: '/signup', action: ({params}) => <SignUp params={params} />},
-    {path: '/login', action: ({params}) => <Login params={params} />},
-    {path: '/dashboard', action: ({params}) => <Dashboard params={params} />}
+    {
+      path: '/',
+      action: ({params}) => <Home params={params} />,
+      protected: false
+    },
+    {
+      path: '/signup',
+      action: ({params}) => <SignUp params={params} />,
+      protected: false
+    },
+    {
+      path: '/login',
+      action: ({params}) => <Login params={params} />,
+      protected: false
+    },
+    {
+      path: '/dashboard',
+      action: ({params}) => <Dashboard params={params} />,
+      protected: true
+    }
   ],
   error: {
     '404': {
       path: '/error',
       action: ({params}) => <FourOhFour params={params} />
+    },
+    '401': {
+      path: '/login',
+      action: ({params}) => <Login params={params} />,
+      protected: false
     }
   }
 }
