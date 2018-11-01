@@ -2,7 +2,7 @@ import React from 'react'
 
 import './styles.css'
 import icon from '../../static/icon.png'
-import { logout } from '../../helpers'
+import {logout} from '../../helpers'
 
 const Navigation = () => (
   <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">

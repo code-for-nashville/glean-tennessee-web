@@ -19,18 +19,22 @@ class Root extends React.Component {
       setUser: user =>
         this.setState(prevState => ({
           ...prevState,
-          context: { ...prevState.context, user }
+          context: {...prevState.context, user}
         }))
     }
   }
 
   componentDidMount() {
     history.listen(this.setRoute)
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState((prevState) => ({ context: { ...prevState.context, user } }))
+        this.setState(prevState => ({
+          context: {...prevState.context, user}
+        }))
       } else {
-        this.setState((prevState) => ({ context: { ...prevState.context, user: null } }))
+        this.setState(prevState => ({
+          context: {...prevState.context, user: null}
+        }))
       }
       this.setRoute(history.location)
     })
@@ -43,7 +47,7 @@ class Root extends React.Component {
     const route = await resolve(routes, location, authed)
       .then(renderComponent)
       .catch(renderComponent)
-    this.setState({ route })
+    this.setState({route})
   }
   render(location) {
     return (

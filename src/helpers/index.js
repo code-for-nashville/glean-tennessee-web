@@ -56,7 +56,7 @@ export const logout = async () => await makeApiCall(FirebaseService.logout)
 const NavigationHelpers = {
   login,
   signup,
-  logout,
+  logout
 }
 
 export default NavigationHelpers
