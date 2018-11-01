@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {signup} from '../../helpers'
 import history from '../../navigation/history'
-import {SetUserButton} from '../../components'
 export default class SignUp extends Component {
   state = {
     name: '',
@@ -19,7 +18,7 @@ export default class SignUp extends Component {
     this.setState(stateToChange)
   }
 
-  onSubmit = async setUser => {
+  onSubmit = async () => {
     const data = {
       ...this.state
     }
@@ -27,7 +26,6 @@ export default class SignUp extends Component {
     if (error) {
       this.setState({error})
     } else if (response) {
-      setUser(response)
       history.push('/dashboard')
     }
   }
@@ -123,13 +121,14 @@ export default class SignUp extends Component {
                 />
               </div>
             </form>
-            <SetUserButton
+            <button
               id="register-btn"
               type="submit"
               className="btn btn-default"
-              text={'Submit'}
               onClick={this.onSubmit}
-            />
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>

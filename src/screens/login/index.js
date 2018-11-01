@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {login} from '../../helpers'
 import history from '../../navigation/history'
-import {SetUserButton} from '../../components'
 import './styles.css'
 
 export default class Login extends Component {
@@ -23,14 +22,13 @@ export default class Login extends Component {
     this.setState({[name]: value})
   }
 
-  onSubmit = async setUser => {
+  onSubmit = async () => {
     const {email, password} = this.state
     if (email && password) {
       const [response, loginError] = await login(email, password)
       if (loginError) {
         this.setState({loginError})
       } else if (response) {
-        setUser(response.user)
         history.push('/dashboard')
       }
     }
@@ -78,13 +76,14 @@ export default class Login extends Component {
                 onChange={this.onInputChange}
               />
             </div>
-            <SetUserButton
+            <button
               id="login-btn"
               type="submit"
               className="btn btn-default btn-sub"
               onClick={this.onSubmit}
-              text={'Sign in'}
-            />
+            >
+              Sign in
+            </button>
             <p className="sign-up-offer">
               First time with the app?
               <span id="sign-up-show" className="fakelink">

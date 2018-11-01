@@ -15,27 +15,16 @@ class Root extends React.Component {
   state = {
     route: null,
     context: {
-      user: null,
-      setUser: user =>
-        this.setState(prevState => ({
-          ...prevState,
-          context: {...prevState.context, user}
-        }))
+      user: null
     }
   }
 
   componentDidMount() {
     history.listen(this.setRoute)
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState(prevState => ({
-          context: {...prevState.context, user}
-        }))
-      } else {
-        this.setState(prevState => ({
-          context: {...prevState.context, user: null}
-        }))
-      }
+      this.setState(prevState => ({
+        context: {...prevState.context, user}
+      }))
       this.setRoute(history.location)
     })
   }
