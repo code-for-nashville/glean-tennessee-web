@@ -53,6 +53,10 @@ export const signup = async data => {
 
 export const logout = async () => await makeApiCall(FirebaseService.logout)
 
-export default {
-  login
+const NavigationHelpers = {
+  login,
+  signup,
+  logout,
 }
+
+export default NavigationHelpers
