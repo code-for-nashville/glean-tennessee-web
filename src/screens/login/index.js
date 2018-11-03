@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {login} from '../../helpers'
 import history from '../../navigation/history'
-import Strings, { Regex } from '../../constants'
+import Strings, {Regex} from '../../constants'
 import './styles.css'
 
 export default class Login extends Component {

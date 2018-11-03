@@ -1,8 +1,7 @@
-
 const Strings = {
-  firebaseErrorMessage: (error) => {
+  firebaseErrorMessage: error => {
     let code = null
-    switch(error.code) {
+    switch (error.code) {
       case 'auth/user-not-found':
         code = 'Incorrect email or password.'
         break
@@ -20,7 +19,10 @@ const Strings = {
 }
 
 export const Regex = {
-  testEmail: (email) => /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._\+-])*([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/.test(email)
+  testEmail: email =>
+    /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._\+-])*([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/.test(
+      email
+    )
 }
 
 export default Strings

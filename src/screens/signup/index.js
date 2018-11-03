@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {signup} from '../../helpers'
 import history from '../../navigation/history'
-import Strings, { Regex } from '../../constants'
+import Strings, {Regex} from '../../constants'
 export default class SignUp extends Component {
   state = {
     name: '',
@@ -11,7 +11,7 @@ export default class SignUp extends Component {
     email: '',
     password: '',
     emailError: null,
-    signupError: null,
+    signupError: null
   }
 
   onInputChange = e => {
@@ -22,7 +22,9 @@ export default class SignUp extends Component {
 
   validateEmail = () => {
     const {email} = this.state
-    const emailError = !Regex.testEmail(email) ? 'Enter a valid email address' : ''
+    const emailError = !Regex.testEmail(email)
+      ? 'Enter a valid email address'
+      : ''
     this.setState({emailError})
   }
 
@@ -39,10 +41,8 @@ export default class SignUp extends Component {
   }
 
   render() {
-    const { emailError, signupError } = this.state
-    const errorDiv = emailError ? (
-      <div id="emailError">{emailError}</div>
-    ) : null
+    const {emailError, signupError} = this.state
+    const errorDiv = emailError ? <div id="emailError">{emailError}</div> : null
     const signupErrorDiv = signupError ? (
       <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
     ) : null
