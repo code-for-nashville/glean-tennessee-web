@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {login} from '../../helpers'
 import history from '../../navigation/history'
+import Strings, { Regex } from '../../constants'
 import './styles.css'
 
 export default class Login extends Component {
@@ -12,9 +13,9 @@ export default class Login extends Component {
       password: ''
     }
   }
+
   validateEmail = email => {
-    const regex = /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._\+-])*([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/
-    return !regex.test(email) ? 'Enter a valid email address' : ''
+    return !Regex.testEmail(email) ? 'Enter a valid email address' : ''
   }
 
   onInputChange = e => {
@@ -37,13 +38,16 @@ export default class Login extends Component {
   onEmailBlur = () => {
     const {email} = this.state
     const emailError = this.validateEmail(email)
-    return this.setState({emailError})
+    this.setState({emailError})
   }
 
   render() {
-    const {emailError} = this.state
+    const {emailError, loginError} = this.state
     const emailErrorDiv = emailError ? (
       <div id="emailError">{emailError}</div>
+    ) : null
+    const loginErrorDiv = loginError ? (
+      <div id="emailError">{Strings.firebaseErrorMessage(loginError)}</div>
     ) : null
     return (
       <div className="container sign-in-body">
@@ -76,6 +80,7 @@ export default class Login extends Component {
                 onChange={this.onInputChange}
               />
             </div>
+            {loginErrorDiv}
             <button
               id="login-btn"
               type="submit"

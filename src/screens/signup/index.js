@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {signup} from '../../helpers'
 import history from '../../navigation/history'
+import Strings, { Regex } from '../../constants'
 export default class SignUp extends Component {
   state = {
     name: '',
@@ -9,7 +10,8 @@ export default class SignUp extends Component {
     phone: '',
     email: '',
     password: '',
-    error: null
+    emailError: null,
+    signupError: null,
   }
 
   onInputChange = e => {
@@ -18,19 +20,32 @@ export default class SignUp extends Component {
     this.setState(stateToChange)
   }
 
+  validateEmail = () => {
+    const {email} = this.state
+    const emailError = !Regex.testEmail(email) ? 'Enter a valid email address' : ''
+    this.setState({emailError})
+  }
+
   onSubmit = async () => {
     const data = {
       ...this.state
     }
-    const [response, error] = await signup(data)
-    if (error) {
-      this.setState({error})
+    const [response, signupError] = await signup(data)
+    if (signupError) {
+      this.setState({signupError})
     } else if (response) {
       history.push('/dashboard')
     }
   }
 
   render() {
+    const { emailError, signupError } = this.state
+    const errorDiv = emailError ? (
+      <div id="emailError">{emailError}</div>
+    ) : null
+    const signupErrorDiv = signupError ? (
+      <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
+    ) : null
     return (
       <div className="row">
         <div className="col-md">
@@ -58,7 +73,9 @@ export default class SignUp extends Component {
                   className="form-control"
                   id="email"
                   placeholder="Email"
+                  onBlur={this.validateEmail}
                 />
+                {errorDiv}
               </div>
               <div className="form-group">
                 <label htmlFor="up-password">Password</label>
@@ -121,6 +138,7 @@ export default class SignUp extends Component {
                 />
               </div>
             </form>
+            {signupErrorDiv}
             <button
               id="register-btn"
               type="submit"
