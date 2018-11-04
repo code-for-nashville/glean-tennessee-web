@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from '../link'
 import './styles.css'
 import icon from '../../static/icon.png'
 import {logout} from '../../helpers'
@@ -24,26 +24,29 @@ const Navigation = () => (
 
     <div className="collapse navbar-collapse">
       <div className="navbar-nav">
-        <a className="nav-item nav-link active" href="/login">
-          Log In
-        </a>
-        <a className="nav-item nav-link" href="/signup">
-          Register
-        </a>
-        <a className="nav-item nav-link" href="/dashboard">
-          Gleaning Request
-        </a>
-        <a
+        <Link
+          className="nav-item nav-link active"
+          href="/login"
+          title={'Log In'}
+        />
+        <Link className="nav-item nav-link" href="/signup" title={'Register'} />
+        <Link
+          className="nav-item nav-link"
+          href="/dashboard"
+          title={'Gleaning Request'}
+        />
+        <Link
           className="nav-item nav-link"
           target="_blank"
           rel="noopener noreferrer"
           href="https://endhunger.org/"
-        >
-          Society of St. Andrew
-        </a>
-        <a className="nav-item nav-link active" onClick={logout}>
-          Log Out
-        </a>
+          title={'Society of St. Andrew'}
+        />
+        <Link
+          className="nav-item nav-link active"
+          onClick={logout}
+          title={'Log Out'}
+        />
       </div>
     </div>
   </nav>
