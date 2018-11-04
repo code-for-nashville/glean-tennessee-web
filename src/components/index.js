@@ -1,3 +1,3 @@
 import Navigation from './navigation'
-
-export {Navigation}
+import Link from './link'
+export {Navigation, Link}

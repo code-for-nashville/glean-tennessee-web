@@ -2,6 +2,7 @@ import React from 'react'
 
 import './styles.css'
 import icon from '../../static/icon.png'
+import {logout} from '../../helpers'
 
 const Navigation = () => (
   <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">
@@ -39,6 +40,9 @@ const Navigation = () => (
           href="https://endhunger.org/"
         >
           Society of St. Andrew
+        </a>
+        <a className="nav-item nav-link active" onClick={logout}>
+          Log Out
         </a>
       </div>
     </div>
