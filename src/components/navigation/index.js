@@ -2,6 +2,7 @@ import React from 'react'
 import Link from '../link'
 import './styles.css'
 import icon from '../../static/icon.png'
+import {logout} from '../../helpers'
 
 const Navigation = () => (
   <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">
@@ -40,6 +41,11 @@ const Navigation = () => (
           rel="noopener noreferrer"
           href="https://endhunger.org/"
           title={'Society of St. Andrew'}
+        />
+        <Link
+          className="nav-item nav-link active"
+          onClick={logout}
+          title={'Log Out'}
         />
       </div>
     </div>

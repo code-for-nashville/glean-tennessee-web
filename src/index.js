@@ -1,26 +1,51 @@
 import ReactDOM from 'react-dom'
+import React from 'react'
+import firebase from 'firebase'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 import history from './navigation/history'
-import router from './navigation/router'
+import resolve from './navigation/router'
 import routes from './navigation/routes'
-
+import UserContext from './context'
 const container = document.getElementById('root')
 
-const renderComponent = component => {
-  if (component) {
-    ReactDOM.render(component, container)
+const renderComponent = component => component
+
+class Root extends React.Component {
+  state = {
+    route: null,
+    context: {
+      user: null
+    }
+  }
+
+  componentDidMount() {
+    history.listen(this.setRoute)
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState(prevState => ({
+        context: {...prevState.context, user}
+      }))
+      this.setRoute(history.location)
+    })
+  }
+
+  isAuthed = () => !!this.state.context.user
+
+  setRoute = async location => {
+    const authed = this.isAuthed()
+    const route = await resolve(routes, location, authed)
+      .then(renderComponent)
+      .catch(renderComponent)
+    this.setState({route})
+  }
+  render(location) {
+    return (
+      <UserContext.Provider value={this.state.context}>
+        {this.state.route}
+      </UserContext.Provider>
+    )
   }
 }
 
-const render = location => {
-  router
-    .resolve(routes, location)
-    .then(renderComponent)
-    .catch(renderComponent)
-}
-
-render(history.location) // render the current URL
-history.listen(render)
-
+ReactDOM.render(<Root />, container)
 registerServiceWorker()

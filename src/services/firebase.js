@@ -11,8 +11,6 @@ var config = {
 
 firebase.initializeApp(config)
 
-const BASE_URL = config.databaseURL
-
 const FirebaseService = () => {
   const signup = ({email, password}) => {
     return new Promise((resolve, reject) => {
@@ -40,7 +38,7 @@ const FirebaseService = () => {
           resolve(profile)
         })
         .catch(err => {
-          console.log('error logging in:', err)
+          reject(err)
         })
     })
   }
@@ -55,16 +53,24 @@ const FirebaseService = () => {
   }
 
   // data: { name: string, street: string, city: string, state: string, zip: string, phone: string, email: string, is_organic: boolean, uid: string, uid: string }
-  const addProfile = ({userId, data}) =>
-    firebase
-      .database()
-      .ref('users/' + userId)
-      .update(data)
+  const addProfile = ({data}) =>
+    new Promise((resolve, reject) => {
+      firebase
+        .database()
+        .ref('users/' + data.uid)
+        .update(data, error => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve(true)
+          }
+        })
+    })
 
-  const getUserProfile = userId =>
+  const getUserProfile = () =>
     firebase
       .database()
-      .ref('/users/' + userId)
+      .ref('/users/' + firebase.auth().currentUser.uid)
       .once('value')
 
   return {

@@ -15,20 +15,26 @@ function matchURI(path, uri, search) {
   return params
 }
 
-const resolve = async (routesObj, context) => {
+const resolve = async (routesObj, context, authed) => {
   const {success: routes, error: errorRoutes} = routesObj
   const uri = context.error ? errorRoutes['404'].path : context.pathname
   const search = context.search
+  let result
   for (const route of routes) {
     const params = matchURI(route.path, uri, search)
     if (!params) continue // Null was returned so no route was found, keep looking
-    const result = await route.action({params})
-    const AppComponent = <App>{result}</App>
-    if (result) return AppComponent
+
+    if (route.protected && !authed) {
+      result = errorRoutes['401'].action({params})
+    } else {
+      result = await route.action({params})
+    }
   }
-  const params = matchURI(uri, uri, search)
-  const result = errorRoutes['404'].action({params})
-  return result
+  if (!result) {
+    const params = matchURI(uri, uri, search)
+    result = errorRoutes['404'].action({params})
+  }
+  return <App>{result}</App>
 }
 
-export default {resolve}
+export default resolve

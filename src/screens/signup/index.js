@@ -1,7 +1,18 @@
 import React, {Component} from 'react'
-
+import {signup} from '../../helpers'
+import history from '../../navigation/history'
+import Strings, {Regex} from '../../constants'
 export default class SignUp extends Component {
-  state = {}
+  state = {
+    name: '',
+    street: '',
+    zip: '',
+    phone: '',
+    email: '',
+    password: '',
+    emailError: null,
+    signupError: null
+  }
 
   onInputChange = e => {
     const stateToChange = {}
@@ -9,13 +20,37 @@ export default class SignUp extends Component {
     this.setState(stateToChange)
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    console.log('The submit button was pushed')
-    //TODO - link up to firebase stuff
+  validateEmail = () => {
+    const {email} = this.state
+    const emailError = !Regex.testEmail(email)
+      ? 'Enter a valid email address'
+      : ''
+    this.setState({emailError})
+  }
+
+  onSubmit = async () => {
+    const {password, name, street, zip, phone, email} = this.state
+    const data = {
+      name,
+      street,
+      zip,
+      phone,
+      email
+    }
+    const [response, signupError] = await signup(data, password)
+    if (signupError) {
+      this.setState({signupError})
+    } else if (response) {
+      history.push('/dashboard')
+    }
   }
 
   render() {
+    const {emailError, signupError} = this.state
+    const errorDiv = emailError ? <div id="emailError">{emailError}</div> : null
+    const signupErrorDiv = signupError ? (
+      <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
+    ) : null
     return (
       <div className="row">
         <div className="col-md">
@@ -41,9 +76,11 @@ export default class SignUp extends Component {
                   onChange={this.onInputChange}
                   type="email"
                   className="form-control"
-                  id="up-email"
+                  id="email"
                   placeholder="Email"
+                  onBlur={this.validateEmail}
                 />
+                {errorDiv}
               </div>
               <div className="form-group">
                 <label htmlFor="up-password">Password</label>
@@ -51,7 +88,7 @@ export default class SignUp extends Component {
                   type="password"
                   onChange={this.onInputChange}
                   className="form-control"
-                  id="up-password"
+                  id="password"
                   placeholder="Password"
                 />
               </div>
@@ -106,7 +143,13 @@ export default class SignUp extends Component {
                 />
               </div>
             </form>
-            <button id="register-btn" type="submit" className="btn btn-default">
+            {signupErrorDiv}
+            <button
+              id="register-btn"
+              type="submit"
+              className="btn btn-default"
+              onClick={this.onSubmit}
+            >
               Submit
             </button>
           </div>
