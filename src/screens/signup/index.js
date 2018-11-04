@@ -29,10 +29,15 @@ export default class SignUp extends Component {
   }
 
   onSubmit = async () => {
+    const {password, name, street, zip, phone, email} = this.state
     const data = {
-      ...this.state
+      name,
+      street,
+      zip,
+      phone,
+      email
     }
-    const [response, signupError] = await signup(data)
+    const [response, signupError] = await signup(data, password)
     if (signupError) {
       this.setState({signupError})
     } else if (response) {
