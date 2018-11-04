@@ -7,6 +7,10 @@ const Strings = {
         break
       case 'auth/invalid-email':
         code = 'Invalid email format'
+        break
+      case 'auth/email-already-in-use':
+        code = error.message
+        break
       default:
         // don't set an error if not called with a proper error object
         if (error && error.code) {
