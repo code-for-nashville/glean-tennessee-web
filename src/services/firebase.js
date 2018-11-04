@@ -1,12 +1,12 @@
 import firebase from 'firebase'
 
 var config = {
-  apiKey: 'AIzaSyC14hJ31aB7YF_0_yOZ_3KG1sPmKlEtLh0',
-  authDomain: 'glean-tennessee.firebaseapp.com',
-  databaseURL: 'https://glean-tennessee.firebaseio.com',
-  projectId: 'glean-tennessee',
-  storageBucket: 'glean-tennessee.appspot.com',
-  messagingSenderId: '272130733451'
+  apiKey: 'AIzaSyAd39Tc5YR1OJMeZbqG8PjzD2DE6sYY0N8',
+  authDomain: 'gleantn-1794b.firebaseapp.com',
+  databaseURL: 'https://gleantn-1794b.firebaseio.com',
+  projectId: 'gleantn-1794b',
+  storageBucket: 'gleantn-1794b.appspot.com',
+  messagingSenderId: '431241114929'
 }
 
 firebase.initializeApp(config)
@@ -57,7 +57,7 @@ const FirebaseService = () => {
     new Promise((resolve, reject) => {
       firebase
         .database()
-        .ref('users/' + data.uid)
+        .ref('farmers/' + data.uid)
         .update(data, error => {
           if (error) {
             reject(error)
@@ -70,7 +70,7 @@ const FirebaseService = () => {
   const getUserProfile = () =>
     firebase
       .database()
-      .ref('/users/' + firebase.auth().currentUser.uid)
+      .ref('/farmers/' + firebase.auth().currentUser.uid)
       .once('value')
 
   return {
