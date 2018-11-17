@@ -1,17 +1,24 @@
 import React from 'react'
 import toRegex from 'path-to-regexp'
-import queryString from 'query-string'
 import App from '../App'
+
 // https://medium.freecodecamp.org/you-might-not-need-react-router-38673620f3d
 
-function matchURI(path, uri, search) {
+function matchURI(path, uri) {
   const keys = []
   const pattern = toRegex(path, keys)
-  const match = pattern.exec(uri)
-  if (!match) {
-    return null
+  return pattern.exec(uri)
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+function extractQueryParams(search) {
+  const urlSearchParams = new URLSearchParams(search)
+  const params = {}
+
+  for (const keyValue of urlSearchParams.entries()) {
+    params[keyValue[0]] = keyValue[1]
   }
-  const params = queryString.parse(search)
+
   return params
 }
 
@@ -21,8 +28,11 @@ const resolve = async (routesObj, context, authed) => {
   const search = context.search
   let result
   for (const route of routes) {
-    const params = matchURI(route.path, uri, search)
-    if (!params) continue // Null was returned so no route was found, keep looking
+    if (!matchURI(route.path, uri)) {
+      continue
+    }
+
+    const params = extractQueryParams(search)
 
     if (route.protected && !authed) {
       result = errorRoutes['401'].action({params})
@@ -30,6 +40,7 @@ const resolve = async (routesObj, context, authed) => {
       result = await route.action({params})
     }
   }
+
   if (!result) {
     const params = matchURI(uri, uri, search)
     result = errorRoutes['404'].action({params})
