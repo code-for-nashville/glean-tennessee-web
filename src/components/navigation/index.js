@@ -1,55 +1,92 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Link from '../link'
 import './styles.css'
 import icon from '../../static/icon.png'
 import {logout} from '../../helpers'
+import {withUserContextConsumer} from '../../context/user'
 
-const Navigation = () => (
-  <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">
-    <a className="navbar-brand" href="http://endhunger.org/">
-      <img className="img-fluid nav-icon" alt="" src={icon} />
-    </a>
+class Navigation extends Component {
+  state = {
+    menuOpen: false
+  }
 
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span className="navbar-toggler-icon" />
-    </button>
+  unauthenticatedLinks = () => [
+    <Link
+      className="nav-item nav-link active"
+      href="/login"
+      children={'Log In'}
+      key="login"
+      callBack={this.closeMenu}
+    />,
+    <Link
+      key="register"
+      className="nav-item nav-link"
+      href="/signup"
+      children={'Register'}
+      callBack={this.closeMenu}
+    />
+  ]
 
-    <div className="collapse navbar-collapse">
-      <div className="navbar-nav">
-        <Link
-          className="nav-item nav-link active"
-          href="/login"
-          title={'Log In'}
-        />
-        <Link className="nav-item nav-link" href="/signup" title={'Register'} />
-        <Link
-          className="nav-item nav-link"
-          href="/dashboard"
-          title={'Gleaning Request'}
-        />
-        <Link
-          className="nav-item nav-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://endhunger.org/"
-          title={'Society of St. Andrew'}
-        />
-        <Link
-          className="nav-item nav-link active"
-          onClick={logout}
-          title={'Log Out'}
-        />
-      </div>
-    </div>
-  </nav>
-)
+  authenticatedLinks = () => [
+    <Link
+      className="nav-item nav-link"
+      href="/dashboard"
+      children={'Gleaning Request'}
+      key="request"
+      callBack={this.closeMenu}
+    />,
+    <Link
+      className="nav-item nav-link active"
+      onClick={logout}
+      children={'Log Out'}
+      key="logout"
+      callBack={this.closeMenu}
+    />
+  ]
 
-export default Navigation
+  toggleMenu = () => {
+    this.setState(prevState => ({menuOpen: !prevState.menuOpen}))
+  }
+
+  closeMenu = () => {
+    if (this.state.menuOpen) {
+      this.setState({menuOpen: false})
+    }
+  }
+
+  render() {
+    const links = this.props.user
+      ? this.authenticatedLinks()
+      : this.unauthenticatedLinks()
+    const menuClass = this.state.menuOpen
+      ? 'collapse navbar-collapse show'
+      : 'collapse navbar-collapse'
+    return (
+      <nav id="sosa-nav" className="navbar navbar-expand-md navbar-dark">
+        <Link
+          className="navbar-brand"
+          href="/"
+          children={<img className="img-fluid nav-icon" alt="" src={icon} />}
+        />
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          onClick={this.toggleMenu}
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        <div className={menuClass}>
+          <div className="navbar-nav">{links}</div>
+        </div>
+      </nav>
+    )
+  }
+}
+
+export default withUserContextConsumer(Navigation)
