@@ -16,7 +16,6 @@
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "prettier": "1.12.1",
-    "query-string": "^6.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.4"
