@@ -11,8 +11,14 @@ if (typeof (Storage) !== "undefined") {
   alert("Unfortunately, local storage is not enabled on this device.");
 }
 
+//hide all alerts on register page
+$(".form-alert").children().hide();
+
 //the promise set up here allows the user to be created before their profile is saved -- this allows them to become 'authenticated' as well as saves their (uid) details to the firebase database
 $("#register-btn").click(() => {
+  $(".form-alert").children().hide();
+  let formIsValid = validateNewUser();
+  if (formIsValid) {
   createUser()
     .then(results => {
       return addFarmerProfile(results)
@@ -30,6 +36,7 @@ $("#register-btn").click(() => {
       console.log("error in registration", err);
       window.alert(err.message);
     })
+  }
 })
 
 let signUpScreen = () => {
@@ -39,6 +46,7 @@ let signUpScreen = () => {
   $('#sign-up-nav').addClass('active');
   $('#log-in-nav').removeClass('active');
   $('#glean-req-nav').removeClass('active');
+
 }
 
 let signInScreen = () => {
@@ -155,53 +163,85 @@ let addFarmerProfile = (user) => {
       reject(error);
     });
 
+
   });
 
 };
 
-//authenticate the user with firebase --Add a new user to the auth list
-let createUser = () => {
-  return new Promise((resolve, reject) => {
-    userObj = {
-      password: $('#up-password').val(),
-      email: $('#up-email').val()
-    }
-    firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
-      .then((user) => {
-        currentUser = user;
-        resolve(currentUser)
-      })
-      .catch((err) => {
-        reject(err);
-      })
-  })
-};
+let validateNewUser = () => {
+  //start of field validation for register user form
+  if ($('#name').val() === "") {
+    $('#nameAlert').show();
+    return false;
+  } else if ($('#up-email').val() === "" || $('#up-email').val().indexOf("@") === -1) {
+    $('#emailAlert').show();
+    return false;
+  } else if ($('#up-password').val() === "") {
+    $('#passwordAlert').show();
+    return false;
+  } else if ($('#phone').val() === "") {
+    $('#phoneAlert').show();
+    return false;
+  } else if ($('#street').val() === "") {
+    $('#streetAlert').show();
+    return false;
+  } else if ($('#city').val() === "") {
+    $('#cityAlert').show();
+    return false;
+  } else if ($('#state').val() === "") {
+    $('#stateAlert').show();
+    return false;
+  } else if ($('#zip').val() === "") {
+    $('#zipAlert').show();
+    return false;
+  } else {
+    return true;
+  }
+}
 
-let loginUser = (userObj) => {
-  return new Promise((resolve, reject) => {
-    firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
-      .then((profile) => {
-        currentUser = profile.uid;
-        sessionStorage.setItem("user_id", currentUser);
-        $('#glean-req-nav').removeClass('hidden');
-        $('#sign-up-nav').addClass('hidden');
-        $('#log-in-nav').addClass('hidden');
-        $('#log-out-nav').removeClass('hidden');
-        resolve(profile);
-      })
-      .catch((err) => {
-        console.log("error logging in:", err);
-      });
-  });
-};
-
-let logoutUser = () => {
-  return firebase.auth().signOut()
-    .then((response) => {
-      signInScreen();
-
+  //authenticate the user with firebase --Add a new user to the auth list
+  let createUser = () => {
+    return new Promise((resolve, reject) => {
+      userObj = {
+        password: $('#up-password').val(),
+        email: $('#up-email').val()
+      }
+      firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
+        .then((user) => {
+          currentUser = user;
+          resolve(currentUser)
+        })
+        .catch((err) => {
+          reject(err);
+        })
     })
-    .catch((err) => {
-      console.log("error logging out", err.message);
+  };
+
+  let loginUser = (userObj) => {
+    return new Promise((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
+        .then((profile) => {
+          currentUser = profile.uid;
+          sessionStorage.setItem("user_id", currentUser);
+          $('#glean-req-nav').removeClass('hidden');
+          $('#sign-up-nav').addClass('hidden');
+          $('#log-in-nav').addClass('hidden');
+          $('#log-out-nav').removeClass('hidden');
+          resolve(profile);
+        })
+        .catch((err) => {
+          console.log("error logging in:", err);
+        });
     });
-};
+  };
+
+  let logoutUser = () => {
+    return firebase.auth().signOut()
+      .then((response) => {
+        signInScreen();
+
+      })
+      .catch((err) => {
+        console.log("error logging out", err.message);
+      });
+  };
