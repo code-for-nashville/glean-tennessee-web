@@ -9,3 +9,13 @@ script:
   - yarn lint
   - yarn test
   - yarn run build
+before_deploy:
+  - yarn build
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: build
+  on:
+    branch: master
