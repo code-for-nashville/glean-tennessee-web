@@ -9,8 +9,8 @@ const routes = {
   success: [
     {
       path: '/',
-      action: ({params}) => <Home params={params} />,
-      protected: false
+      action: ({params}) => <Dashboard params={params} />,
+      protected: true
     },
     {
       path: '/signup',
