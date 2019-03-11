@@ -1,9 +1,30 @@
 import React, {Component} from 'react'
+import FirebaseService from '../../services/firebase'
 
 export default class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      details: '',
+      subject: '',
+      phone: '',
+      address: ''
+    }
+  }
+  submitForm = () => {
+    FirebaseService.sendMessage(this.state)
+  }
+
+  onChange = e => {
+    e.persist()
+    const {value, name} = e.target
+    this.setState({[name]: value})
+  }
+
   render() {
+    const {details, subject, phone, address} = this.state
     return (
-      <div>
+      <div className="container">
         <div className="row">
           <div className="col-md">
             <div className="well">
@@ -13,10 +34,17 @@ export default class Dashboard extends Component {
                 Please provide any details you would like us to know before we
                 contact you.
               </h5>
-              <form
-                method="POST"
-                action="https://formspree.io/sosagleantn@gmail.com"
-              >
+              <form>
+                <div className="form-group">
+                  <label htmlFor="subj">Subject:</label>
+                  <input
+                    type="text"
+                    id="subj"
+                    name="subject"
+                    value={subject}
+                    onChange={this.onChange}
+                  />
+                </div>
                 <div className="form-group">
                   <label htmlFor="extra-detail">Notes:</label>
                   <textarea
@@ -25,32 +53,35 @@ export default class Dashboard extends Component {
                     className="form-control"
                     id="extra-detail"
                     placeholder="Type and amount of food for donation, location of field, etc."
+                    value={details}
+                    onChange={this.onChange}
                   />
                 </div>
-                <input
-                  type="hidden"
-                  id="hidden-subj"
-                  name="_subject"
-                  value="New request for gleaners!"
-                />
-                <input type="hidden" id="hidden-name" name="name" value="" />
-                <input type="hidden" id="hidden-email" name="email" value="" />
-                <input
-                  type="hidden"
-                  id="hidden-phone"
-                  name="phone_number"
-                  value=""
-                />
-                <input
-                  type="hidden"
-                  id="hidden-address"
-                  name="address"
-                  value=""
-                />
+                <div className="form-group">
+                  <label htmlFor="phone">Phone:</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={phone}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="address">Address:</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={address}
+                    onChange={this.onChange}
+                  />
+                </div>
                 <button
                   id="submit-btn"
-                  type="submit"
+                  type="button"
                   className="form-control btn btn-primary btn-block btn-lg"
+                  onClick={this.submitForm}
                 >
                   Submit
                 </button>

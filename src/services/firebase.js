@@ -73,12 +73,18 @@ const FirebaseService = () => {
       .ref('/users/' + firebase.auth().currentUser.uid)
       .once('value')
 
+  const sendMessage = message => {
+    var sendMessage = firebase.functions().httpsCallable('sendMessage')
+    sendMessage(message)
+  }
+
   return {
     signup,
     login,
     logout,
     addProfile,
-    getUserProfile
+    getUserProfile,
+    sendMessage
   }
 }
 

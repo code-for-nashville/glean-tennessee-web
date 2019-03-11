@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "users": {
+      "$user_id": {
+        // users can read/write their own account details
+        // admins can read/write any organization user (To Do)
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "organizations": {
+      "$org_id": {
+        // admins can read/write organization details
+        // dispatchers can read
+        ".read": "root.child('admin/'+$org_id+'/'+auth.uid).exists() || root.child('dispatchers/'+$org_id+'/'+auth.uid).exists()",
+        ".write": "root.child('admin/'+$org_id+'/'+auth.uid).exists()"
+      }
+    },
+    "openRequests": {
+      "$org_id": {
+        // admins and dispatchers can read & write openRequests
+        ".read": "root.child('admin/'+$org_id+'/'+auth.uid).exists() || root.child('dispatchers/'+$org_id+'/'+auth.uid).exists()",
+        ".write": "auth.uid !== null"
+      }
+    }
+  }
+}
