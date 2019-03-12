@@ -11,8 +11,8 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
   const email = context.auth.token.email || null;
   const {details, subject, phone, address} = data
   const emailConfig = {
-    to: 'corey@codefornashville.org',
-    from: 'corey@codefornashville.org',
+    to: 'sosa.glean.tn@gmail.com',
+    from: 'sosa.glean.tn@gmail.com',
     subject,
     templateId: 'd-b1f6d9ac6715453d9c7ba5b3edfbe6a2',
     substitutionWrappers: ['{{', '}}'],
