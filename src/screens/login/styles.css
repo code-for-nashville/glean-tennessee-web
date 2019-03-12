@@ -22,16 +22,6 @@ h2 {
     font-family: 'Roboto', sans-serif;
     color: #05010F;
 }
-.fakelink {
-    color: #337ab7;
-    cursor: pointer
-}
-
-.fakelink:hover{
-    text-decoration: none;
-    transition-duration: .3s;
-    color: #8A010F;
-}
 
 #emailError{
     color: #ff0019;
