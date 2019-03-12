@@ -1,42 +1,88 @@
 import React, {Component} from 'react'
 import {signup} from '../../helpers'
 import history from '../../navigation/history'
+import {Input} from '../../components'
 import Strings, {Regex} from '../../constants'
+
+const Validators = {
+  name: {regex: Regex.notBlank, message: 'Please enter your name.'},
+  street: {regex: Regex.notBlank, message: 'Please enter your street address.'},
+  city: {regex: Regex.notBlank, message: 'Please enter your city.'},
+  state: {regex: Regex.notBlank, message: 'Please enter your state.'},
+  zip: {regex: Regex.zip, message: 'Please enter your zipcode.'},
+  phone: {regex: Regex.phone, message: 'Please enter a valid phone number.'},
+  email: {regex: Regex.email, message: 'Please enter a valid email.'},
+  password: {
+    regex: Regex.password,
+    message: 'Please enter a password at least 8 characters long.'
+  }
+}
 export default class SignUp extends Component {
-  state = {
-    name: '',
-    street: '',
-    zip: '',
-    phone: '',
-    email: '',
-    password: '',
-    emailError: null,
-    signupError: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      values: {
+        name: '',
+        street: '',
+        zip: '',
+        phone: '',
+        email: '',
+        password: '',
+        city: '',
+        state: ''
+      },
+      errors: {
+        street: null,
+        zip: null,
+        phone: null,
+        email: null,
+        password: null,
+        name: null,
+        city: null,
+        state: null
+      },
+      signupError: null,
+      submitted: false
+    }
   }
 
   onInputChange = e => {
-    const stateToChange = {}
-    stateToChange[e.target.id] = e.target.value
-    this.setState(stateToChange)
+    const {value, name} = e.target
+    this.setState(prevState => ({
+      ...prevState,
+      values: {...prevState.values, [name]: value}
+    }))
   }
 
-  validateEmail = () => {
-    const {email} = this.state
-    const emailError = !Regex.testEmail(email)
-      ? 'Enter a valid email address'
-      : ''
-    this.setState({emailError})
+  validate = () => {
+    const {values} = this.state
+    const errors = Object.entries(values).reduce((acc, [key, value]) => {
+      acc[key] = !Validators[key].regex.test(value)
+      return acc
+    }, {})
+    this.setState({errors})
+    return Object.values(errors).filter(e => e).length === 0
   }
 
-  onSubmit = async () => {
-    const {password, name, street, zip, phone, email} = this.state
+  onSubmit = () => {
+    const {password, name, street, zip, phone, email, city, state} = this.state
     const data = {
       name,
       street,
       zip,
       phone,
-      email
+      email,
+      city,
+      state
     }
+    const valid = this.validate()
+    this.setState({submitted: true})
+    if (valid) {
+      // this.submitForm(data, password)
+    }
+  }
+
+  submitForm = async (data, password) => {
     const [response, signupError] = await signup(data, password)
     if (signupError) {
       this.setState({signupError})
@@ -46,11 +92,12 @@ export default class SignUp extends Component {
   }
 
   render() {
-    const {emailError, signupError} = this.state
-    const errorDiv = emailError ? <div id="emailError">{emailError}</div> : null
+    const {errors, signupError, submitted} = this.state
     const signupErrorDiv = signupError ? (
       <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
     ) : null
+    const wasValidatedClass = submitted ? '' : ''
+
     return (
       <div className="container">
         <div className="row">
@@ -60,87 +107,101 @@ export default class SignUp extends Component {
               <h5>
                 This is the information SoSA will use to get in touch with you.
               </h5>
-              <form id="registrationForm" onSubmit={this.onSubmit}>
+              <form
+                id="registrationForm"
+                onSubmit={this.onSubmit}
+                className={wasValidatedClass}
+              >
                 <div className="form-group">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    onChange={this.onInputChange}
-                    type="text"
-                    className="form-control"
+                  <Input
                     id="name"
+                    label="Name"
                     placeholder="Name"
+                    onChange={this.onInputChange}
+                    error={errors.name && Validators.name.message}
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="up-email">Email address</label>
-                  <input
-                    onChange={this.onInputChange}
-                    type="email"
-                    className="form-control"
+                  <Input
                     id="email"
+                    label="Email address"
                     placeholder="Email"
-                    onBlur={this.validateEmail}
+                    onChange={this.onInputChange}
+                    error={errors.email && Validators.email.message}
+                    type="email"
+                    required
+                    onBlur={this.validate}
                   />
-                  {errorDiv}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="up-password">Password</label>
-                  <input
-                    type="password"
-                    onChange={this.onInputChange}
-                    className="form-control"
+                  <Input
                     id="password"
+                    label="Password"
                     placeholder="Password"
+                    onChange={this.onInputChange}
+                    error={errors.password && Validators.password.message}
+                    type="password"
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="phone">Phone number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    onChange={this.onInputChange}
+                  <Input
                     id="phone"
+                    label="Phone number"
                     placeholder="(615) 555-5555"
+                    onChange={this.onInputChange}
+                    error={errors.phone && Validators.phone.message}
+                    type="tel"
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="street">Street Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
+                  <Input
                     id="street"
+                    label="Street Address"
                     placeholder="123 Main Street"
+                    onChange={this.onInputChange}
+                    error={errors.street && Validators.street.message}
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="city">City</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
+                  <Input
                     id="city"
+                    label="City"
                     placeholder="Nashville"
+                    onChange={this.onInputChange}
+                    error={errors.city && Validators.city.message}
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="state">State</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
+                  <Input
                     id="state"
+                    label="State"
                     placeholder="Tennessee"
+                    onChange={this.onInputChange}
+                    error={errors.state && Validators.state.message}
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="zip">Zip Code</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={this.onInputChange}
+                  <Input
                     id="zip"
+                    label="Zip Code"
                     placeholder="37211"
+                    onChange={this.onInputChange}
+                    error={errors.zip && Validators.zip.message}
+                    type="number"
+                    required
+                    onBlur={this.validate}
                   />
                 </div>
               </form>
