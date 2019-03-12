@@ -12,7 +12,7 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
   const {details, subject, phone, address} = data
   const emailConfig = {
     to: 'corey@codefornashville.org',
-    from: email,
+    from: 'corey@codefornashville.org',
     subject,
     templateId: 'd-b1f6d9ac6715453d9c7ba5b3edfbe6a2',
     substitutionWrappers: ['{{', '}}'],
@@ -21,6 +21,7 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
       message: details, 
       phone,
       address,
+      email,
     }
   }
   SendGrid.send(emailConfig)
