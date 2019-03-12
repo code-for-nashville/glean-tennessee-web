@@ -1,0 +1,13 @@
+const TYPES = {
+  DEFAULT: 'DEFAULT',
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS'
+}
+
+export const ACTIONS = {
+  TOAST: 'TOAST',
+  DID_MOUNT: 'DID_MOUNT',
+  WILL_UNMOUNT: 'WILL_UNMOUNT'
+}
+
+export default TYPES

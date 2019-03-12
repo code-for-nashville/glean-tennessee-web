@@ -1,0 +1,32 @@
+.toast {
+    position: absolute;
+    right: 100px;
+    z-index: 100;
+}
+
+.toast img {
+    height: 24px;
+    width: auto;
+}
+
+.default {
+
+}
+
+.success .toast-header {
+    background-color: rgb(60,179,113);
+    border-bottom: 1px solid rgba(60,179,113, .95);
+}
+
+.success .toast-body {
+    background-color: rgba(60,179,113, .85);
+}
+
+.error .toast-header {
+    background-color: rgb(178,34,34);
+    border-bottom: 1px solid rgba(178,34,34,.95);
+}
+
+.error .toast-body{
+    background-color: rgba(178,34,34, .85);
+}

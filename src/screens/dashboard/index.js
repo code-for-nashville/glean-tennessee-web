@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import FirebaseService from '../../services/firebase'
-
+import api, {toast} from '../../helpers'
 export default class Dashboard extends Component {
   constructor(props) {
     super(props)
@@ -11,8 +10,17 @@ export default class Dashboard extends Component {
       address: ''
     }
   }
-  submitForm = () => {
-    FirebaseService.sendMessage(this.state)
+  submitForm = async () => {
+    const {details, subject, phone, address} = this.state
+    const [_, err] = await api.sendMessage({details, subject, phone, address})
+    if (err === null) {
+      toast.success('Your request was successfully submitted.')
+      this.setState({details: '', subject: '', phone: '', address: ''})
+    } else {
+      toast.error(
+        'There was an error submitting your request. Please try again.'
+      )
+    }
   }
 
   onChange = e => {

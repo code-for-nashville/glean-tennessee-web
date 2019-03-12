@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {signup} from '../../helpers'
+import api from '../../helpers'
 import history from '../../navigation/history'
 import Strings, {Regex} from '../../constants'
 export default class SignUp extends Component {
@@ -37,7 +37,7 @@ export default class SignUp extends Component {
       phone,
       email
     }
-    const [response, signupError] = await signup(data, password)
+    const [response, signupError] = await api.signup(data, password)
     if (signupError) {
       this.setState({signupError})
     } else if (response) {
