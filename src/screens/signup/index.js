@@ -112,98 +112,82 @@ export default class SignUp extends Component {
                 onSubmit={this.onSubmit}
                 className={wasValidatedClass}
               >
-                <div className="form-group">
-                  <Input
-                    id="name"
-                    label="Name"
-                    placeholder="Name"
-                    onChange={this.onInputChange}
-                    error={errors.name && Validators.name.message}
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="email"
-                    label="Email address"
-                    placeholder="Email"
-                    onChange={this.onInputChange}
-                    error={errors.email && Validators.email.message}
-                    type="email"
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="password"
-                    label="Password"
-                    placeholder="Password"
-                    onChange={this.onInputChange}
-                    error={errors.password && Validators.password.message}
-                    type="password"
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="phone"
-                    label="Phone number"
-                    placeholder="(615) 555-5555"
-                    onChange={this.onInputChange}
-                    error={errors.phone && Validators.phone.message}
-                    type="tel"
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="street"
-                    label="Street Address"
-                    placeholder="123 Main Street"
-                    onChange={this.onInputChange}
-                    error={errors.street && Validators.street.message}
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="city"
-                    label="City"
-                    placeholder="Nashville"
-                    onChange={this.onInputChange}
-                    error={errors.city && Validators.city.message}
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="state"
-                    label="State"
-                    placeholder="Tennessee"
-                    onChange={this.onInputChange}
-                    error={errors.state && Validators.state.message}
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
-                <div className="form-group">
-                  <Input
-                    id="zip"
-                    label="Zip Code"
-                    placeholder="37211"
-                    onChange={this.onInputChange}
-                    error={errors.zip && Validators.zip.message}
-                    type="number"
-                    required
-                    onBlur={this.validate}
-                  />
-                </div>
+                <Input
+                  id="name"
+                  label="Name"
+                  placeholder="Name"
+                  onChange={this.onInputChange}
+                  error={errors.name && Validators.name.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="email"
+                  label="Email address"
+                  placeholder="Email"
+                  onChange={this.onInputChange}
+                  error={errors.email && Validators.email.message}
+                  type="email"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="password"
+                  label="Password"
+                  placeholder="Password"
+                  onChange={this.onInputChange}
+                  error={errors.password && Validators.password.message}
+                  type="password"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="phone"
+                  label="Phone number"
+                  placeholder="(615) 555-5555"
+                  onChange={this.onInputChange}
+                  error={errors.phone && Validators.phone.message}
+                  type="tel"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="street"
+                  label="Street Address"
+                  placeholder="123 Main Street"
+                  onChange={this.onInputChange}
+                  error={errors.street && Validators.street.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="city"
+                  label="City"
+                  placeholder="Nashville"
+                  onChange={this.onInputChange}
+                  error={errors.city && Validators.city.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="state"
+                  label="State"
+                  placeholder="Tennessee"
+                  onChange={this.onInputChange}
+                  error={errors.state && Validators.state.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="zip"
+                  label="Zip Code"
+                  placeholder="37211"
+                  onChange={this.onInputChange}
+                  error={errors.zip && Validators.zip.message}
+                  type="number"
+                  required
+                  onBlur={this.validate}
+                />
               </form>
               {signupErrorDiv}
               <button

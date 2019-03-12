@@ -41,9 +41,8 @@ class Input extends React.Component {
   render() {
     const {id, label, placeholder, onChange, type, error, required} = this.props
     const className = error ? 'form-control is-invalid' : 'form-control'
-    console.dir(this.ref)
     return (
-      <React.Fragment>
+      <div className="form-group">
         <label htmlFor={id}>{label}</label>
         <input
           onChange={onChange}
@@ -57,7 +56,7 @@ class Input extends React.Component {
           onBlur={this.onBlur}
         />
         {this.renderError()}
-      </React.Fragment>
+      </div>
     )
   }
 }
