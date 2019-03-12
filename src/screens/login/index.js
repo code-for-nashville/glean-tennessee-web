@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from '../../components'
 import {login} from '../../helpers'
 import history from '../../navigation/history'
 import Strings, {Regex} from '../../constants'
@@ -91,9 +92,13 @@ export default class Login extends Component {
             </button>
             <p className="sign-up-offer">
               First time with the app?
-              <span id="sign-up-show" className="fakelink">
+              <Link
+                id="sign-up"
+                className="nav-item nav-link active"
+                href="/signup"
+              >
                 Sign up
-              </span>
+              </Link>
             </p>
           </div>
           <div className="about-us">
