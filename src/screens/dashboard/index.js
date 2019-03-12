@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
   }
   submitForm = async () => {
     const {details, subject, phone, address} = this.state
-    const [_, err] = await api.sendMessage({details, subject, phone, address})
+    const [_, err] = await api.sendMessage({details, subject, phone, address}) // eslint-disable-line no-unused-vars
     if (err === null) {
       toast.success('Your request was successfully submitted.')
       this.setState({details: '', subject: '', phone: '', address: ''})
