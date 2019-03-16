@@ -13,12 +13,11 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
     .ref('/users/' + uid)
     .once('value')
     .then(snapshot => {
-      const {details: message, subject } = data
+      const {details: message } = data
       const { email, name, phone, street } = snapshot.val()
       const emailConfig = {
         to: 'sosa.glean.tn@gmail.com',
         from: 'sosa.glean.tn@gmail.com',
-        subject,
         templateId: 'd-b1f6d9ac6715453d9c7ba5b3edfbe6a2',
         dynamic_template_data: {
           name,

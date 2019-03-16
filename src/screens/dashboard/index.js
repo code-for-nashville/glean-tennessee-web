@@ -5,15 +5,14 @@ export default class Dashboard extends Component {
     super(props)
     this.state = {
       details: '',
-      subject: ''
     }
   }
   submitForm = async () => {
-    const {details, subject} = this.state
-    const [_, err] = await api.sendMessage({details, subject}) // eslint-disable-line no-unused-vars
+    const {details} = this.state
+    const [_, err] = await api.sendMessage({details}) // eslint-disable-line no-unused-vars
     if (err === null) {
       toast.success('Your request was successfully submitted.')
-      this.setState({details: '', subject: ''})
+      this.setState({details: ''})
     } else {
       toast.error(
         'There was an error submitting your request. Please try again.'
@@ -28,7 +27,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const {details, subject} = this.state
+    const {details} = this.state
     return (
       <div className="container">
         <div className="row">
