@@ -20,7 +20,7 @@ const Validators = {
   timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
   validate(key, value) {
     const validator = this[key]
-    let valid = true
+    let valid = false
     if (validator) {
       if (validator.regex) {
         valid = !validator.regex.test(value)
@@ -37,14 +37,14 @@ export default class SignUp extends Component {
     super(props)
     this.state = {
       values: {
-        name: '',
-        street: '',
-        zip: '',
-        phone: '',
-        email: '',
-        password: '',
-        city: '',
-        state: '',
+        name: 'Test',
+        street: '700 Street',
+        zip: '77777',
+        phone: '8888888888',
+        email: 'corey+1@codefornashville.org',
+        password: 'password',
+        city: 'Nashville',
+        state: 'TN',
         organic: false,
         weekday: [],
         timeOfDay: []
@@ -91,18 +91,38 @@ export default class SignUp extends Component {
     })
   }
 
-  validate = () => {
-    const {values} = this.state
-    const errors = Object.entries(values).reduce((acc, [key, value]) => {
-      acc[key] = Validators.validate(key, value)
-      return acc
-    }, {})
-    this.setState({errors})
-    return Object.values(errors).filter(e => e).length === 0
+  validate = e => {
+    if (e && e.target.name) {
+      const {name, value} = e.target
+      const valid = Validators.validate(name, value)
+      this.setState(prevState => ({
+        errors: {...prevState.errors, [name]: valid}
+      }))
+    } else {
+      const {values} = this.state
+      const errors = Object.entries(values).reduce((acc, [key, value]) => {
+        acc[key] = Validators.validate(key, value)
+        return acc
+      }, {})
+      this.setState({errors})
+      return Object.values(errors).filter(e => e).length === 0
+    }
   }
 
   onSubmit = () => {
-    const {password, name, street, zip, phone, email, city, state} = this.state
+    const {
+      password,
+      name,
+      street,
+      zip,
+      phone,
+      email,
+      city,
+      state,
+      organic,
+      weekday,
+      timeOfDay
+    } = this.state.values
     const data = {
       name,
       street,
@@ -110,7 +130,10 @@ export default class SignUp extends Component {
       phone,
       email,
       city,
-      state
+      state,
+      organic,
+      weekday,
+      timeOfDay
     }
     const valid = this.validate()
     if (valid) {
@@ -120,6 +143,7 @@ export default class SignUp extends Component {
 
   submitForm = async (data, password) => {
     const [response, signupError] = await api.signup(data, password)
+    console.log({response, signupError})
     if (signupError) {
       this.setState({signupError})
     } else if (response) {
@@ -132,6 +156,7 @@ export default class SignUp extends Component {
     const signupErrorDiv = signupError ? (
       <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
     ) : null
+    console.log(this.state)
     return (
       <div className="container">
         <div className="row">
@@ -232,13 +257,13 @@ export default class SignUp extends Component {
                 <CheckboxGroup
                   onChange={this.onCheckboxChange}
                   options={[
-                    {value: 'Monday', label: 'Monday'},
-                    {value: 'Tuesday', label: 'Tuesday'},
-                    {value: 'Wednesday', label: 'Wednesday'},
-                    {value: 'Thursday', label: 'Thursday'},
-                    {value: 'Friday', label: 'Friday'},
-                    {value: 'Saturday', label: 'Saturday'},
-                    {value: 'Sunday', label: 'Sunday'}
+                    {value: 'monday', label: 'Monday'},
+                    {value: 'tuesday', label: 'Tuesday'},
+                    {value: 'wednesday', label: 'Wednesday'},
+                    {value: 'thursday', label: 'Thursday'},
+                    {value: 'friday', label: 'Friday'},
+                    {value: 'saturday', label: 'Saturday'},
+                    {value: 'sunday', label: 'Sunday'}
                   ]}
                   name={'weekday'}
                   label={'What days of the week are best for pickup?'}
@@ -249,9 +274,9 @@ export default class SignUp extends Component {
                 <CheckboxGroup
                   onChange={this.onCheckboxChange}
                   options={[
-                    {value: 'Morning', label: 'Morning'},
-                    {value: 'Afternoon', label: 'Afternoon'},
-                    {value: 'Evening', label: 'Evening'}
+                    {value: 'morning', label: 'Morning'},
+                    {value: 'afternoon', label: 'Afternoon'},
+                    {value: 'evening', label: 'Evening'}
                   ]}
                   name={'timeOfDay'}
                   label={'What time of day is best for pickup?'}

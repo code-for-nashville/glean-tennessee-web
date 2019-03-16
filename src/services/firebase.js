@@ -13,6 +13,7 @@ firebase.initializeApp(config)
 
 const FirebaseService = () => {
   const signup = ({email, password}) => {
+    console.log({email, password})
     return new Promise((resolve, reject) => {
       firebase
         .auth()

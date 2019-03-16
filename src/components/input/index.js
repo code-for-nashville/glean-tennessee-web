@@ -13,18 +13,20 @@ class Input extends React.Component {
     }
   }
 
-  onBlur = () => {
+  onBlur = e => {
     const {onBlur} = this.props
     if (onBlur) {
-      onBlur()
+      e.persist()
+      onBlur(e)
     }
     this.setState({focus: false})
   }
 
-  onFocus = () => {
+  onFocus = e => {
     const {onFocus} = this.props
     if (onFocus) {
-      onFocus()
+      e.persist()
+      onFocus(e)
     }
     this.setState({focus: true})
   }
