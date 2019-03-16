@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import './App.css'
-import {Navigation, Toast} from './components'
+import {Footer, Navigation, Toast} from './components'
 
 class App extends Component {
   render() {
@@ -9,6 +9,7 @@ class App extends Component {
         <Navigation />
         <Toast />
         {this.props.children}
+        <Footer />
       </div>
     )
   }
