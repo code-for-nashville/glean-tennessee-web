@@ -44,12 +44,14 @@ const FirebaseService = () => {
   }
 
   const logout = () => {
-    return firebase
-      .auth()
-      .signOut()
-      .catch(err => {
-        console.log('error logging out', err.message)
-      })
+    return new Promise((_, reject) =>
+      firebase
+        .auth()
+        .signOut()
+        .catch(err => {
+          reject('error logging out', err.message)
+        })
+    )
   }
 
   // data: { name: string, street: string, city: string, state: string, zip: string, phone: string, email: string, is_organic: boolean, uid: string, uid: string }
@@ -73,12 +75,25 @@ const FirebaseService = () => {
       .ref('/users/' + firebase.auth().currentUser.uid)
       .once('value')
 
+  const sendMessage = message => {
+    return new Promise((resolve, reject) => {
+      try {
+        var sendMessage = firebase.functions().httpsCallable('sendMessage')
+        sendMessage(message)
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   return {
     signup,
     login,
     logout,
     addProfile,
-    getUserProfile
+    getUserProfile,
+    sendMessage
   }
 }
 

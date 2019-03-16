@@ -8,11 +8,13 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "yarn lint:js",
-    "lint:js": "eslint .",
+    "lint:js": "eslint 'src/**/*.{js,json,jsx}'",
     "lint:fix": "prettier --write 'src/**/*.{js,json,jsx}'"
   },
   "dependencies": {
     "firebase": "^5.5.2",
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.2.0",
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "prettier": "1.12.1",

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Link from '../link'
 import './styles.css'
 import icon from '../../static/icon.png'
-import {logout} from '../../helpers'
+import api from '../../helpers'
 import {withUserContextConsumer} from '../../context/user'
 
 class Navigation extends Component {
@@ -37,7 +37,7 @@ class Navigation extends Component {
     />,
     <Link
       className="nav-item nav-link active"
-      onClick={logout}
+      onClick={api.logout}
       children={'Log Out'}
       key="logout"
       callBack={this.closeMenu}

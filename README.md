@@ -17,3 +17,11 @@ To start:
 npm install
 npm start
 ```
+
+## Firebase Functions
+Emails are sent using Sendgrid and firebase functions.
+To deploy/ update the function run 
+
+```$ firebase deploy --only functions```
+
+The function code lives in the `functions` dir.

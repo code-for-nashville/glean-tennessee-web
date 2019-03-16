@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {signup} from '../../helpers'
+import api from '../../helpers'
 import history from '../../navigation/history'
 import {Input} from '../../components'
 import Strings, {Regex} from '../../constants'
@@ -78,12 +78,12 @@ export default class SignUp extends Component {
     const valid = this.validate()
     this.setState({submitted: true})
     if (valid) {
-      // this.submitForm(data, password)
+      this.submitForm(data, password)
     }
   }
 
   submitForm = async (data, password) => {
-    const [response, signupError] = await signup(data, password)
+    const [response, signupError] = await api.signup(data, password)
     if (signupError) {
       this.setState({signupError})
     } else if (response) {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
+import api from '../../helpers'
 import {Link} from '../../components'
-import {login} from '../../helpers'
 import history from '../../navigation/history'
 import Strings, {Regex} from '../../constants'
 import './styles.css'
@@ -27,7 +27,7 @@ export default class Login extends Component {
   onSubmit = async () => {
     const {email, password} = this.state
     if (email && password) {
-      const [response, loginError] = await login(email, password)
+      const [response, loginError] = await api.login(email, password)
       if (loginError) {
         this.setState({loginError})
       } else if (response) {
