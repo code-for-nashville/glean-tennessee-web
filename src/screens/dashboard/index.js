@@ -5,17 +5,15 @@ export default class Dashboard extends Component {
     super(props)
     this.state = {
       details: '',
-      subject: '',
-      phone: '',
-      address: ''
+      subject: ''
     }
   }
   submitForm = async () => {
-    const {details, subject, phone, address} = this.state
-    const [_, err] = await api.sendMessage({details, subject, phone, address}) // eslint-disable-line no-unused-vars
+    const {details, subject} = this.state
+    const [_, err] = await api.sendMessage({details, subject}) // eslint-disable-line no-unused-vars
     if (err === null) {
       toast.success('Your request was successfully submitted.')
-      this.setState({details: '', subject: '', phone: '', address: ''})
+      this.setState({details: '', subject: ''})
     } else {
       toast.error(
         'There was an error submitting your request. Please try again.'
@@ -30,7 +28,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const {details, subject, phone, address} = this.state
+    const {details, subject} = this.state
     return (
       <div className="container">
         <div className="row">
@@ -44,16 +42,6 @@ export default class Dashboard extends Component {
               </h5>
               <form>
                 <div className="form-group">
-                  <label htmlFor="subj">Subject:</label>
-                  <input
-                    type="text"
-                    id="subj"
-                    name="subject"
-                    value={subject}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
                   <label htmlFor="extra-detail">Notes:</label>
                   <textarea
                     name="details"
@@ -62,26 +50,6 @@ export default class Dashboard extends Component {
                     id="extra-detail"
                     placeholder="Type and amount of food for donation, location of field, etc."
                     value={details}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">Phone:</label>
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    value={phone}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="address">Address:</label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={address}
                     onChange={this.onChange}
                   />
                 </div>
