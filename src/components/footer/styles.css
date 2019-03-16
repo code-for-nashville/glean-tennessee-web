@@ -1,0 +1,10 @@
+.footer {
+    background-color: #444;
+    padding: .15rem 1rem;
+    margin-top: 1rem;
+    text-align: left;
+  }
+
+.nav-icon {
+    max-height: 45px;
+}

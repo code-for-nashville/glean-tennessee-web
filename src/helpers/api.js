@@ -21,6 +21,7 @@ export const login = async (email, password) => {
 
 export const signup = async (data, password) => {
   // Create User
+  console.log({data, password})
   const [signupResponse, error] = await makeApiCall(FirebaseService.signup, {
     email: data.email,
     password: password

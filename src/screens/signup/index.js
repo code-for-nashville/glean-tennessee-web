@@ -1,43 +1,149 @@
 import React, {Component} from 'react'
 import api from '../../helpers'
 import history from '../../navigation/history'
+import {CheckboxGroup, Input, RadioGroup} from '../../components'
 import Strings, {Regex} from '../../constants'
+
+const Validators = {
+  name: {regex: Regex.notBlank, message: 'Please enter your name.'},
+  street: {regex: Regex.notBlank, message: 'Please enter your street address.'},
+  city: {regex: Regex.notBlank, message: 'Please enter your city.'},
+  state: {regex: Regex.notBlank, message: 'Please enter your state.'},
+  zip: {regex: Regex.zip, message: 'Please enter your zipcode.'},
+  phone: {regex: Regex.phone, message: 'Please enter a valid phone number.'},
+  email: {regex: Regex.email, message: 'Please enter a valid email.'},
+  password: {
+    regex: Regex.password,
+    message: 'Please enter a password at least 8 characters long.'
+  },
+  weekday: {minLength: 1, message: 'Please select at least one day.'},
+  timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
+  validate(key, value) {
+    const validator = this[key]
+    let valid = false
+    if (validator) {
+      if (validator.regex) {
+        valid = !validator.regex.test(value)
+      } else if (typeof validator.minLength === 'number') {
+        valid = value.length < validator.minLength
+      }
+    }
+
+    return valid
+  }
+}
 export default class SignUp extends Component {
-  state = {
-    name: '',
-    street: '',
-    zip: '',
-    phone: '',
-    email: '',
-    password: '',
-    emailError: null,
-    signupError: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      values: {
+        name: 'Test',
+        street: '700 Street',
+        zip: '77777',
+        phone: '8888888888',
+        email: 'corey+1@codefornashville.org',
+        password: 'password',
+        city: 'Nashville',
+        state: 'TN',
+        organic: false,
+        weekday: [],
+        timeOfDay: []
+      },
+      errors: {
+        street: null,
+        zip: null,
+        phone: null,
+        email: null,
+        password: null,
+        name: null,
+        city: null,
+        state: null,
+        organic: null,
+        weekday: null,
+        timeOfDay: null
+      },
+      signupError: null
+    }
   }
 
   onInputChange = e => {
-    const stateToChange = {}
-    stateToChange[e.target.id] = e.target.value
-    this.setState(stateToChange)
+    const {value, name} = e.target
+    this.setState(prevState => ({
+      ...prevState,
+      values: {...prevState.values, [name]: value}
+    }))
   }
 
-  validateEmail = () => {
-    const {email} = this.state
-    const emailError = !Regex.testEmail(email)
-      ? 'Enter a valid email address'
-      : ''
-    this.setState({emailError})
+  onCheckboxChange = e => {
+    const {value, name} = e.target
+    this.setState(prevState => {
+      const currentValues = prevState.values[name]
+      const checkedValueIdx = currentValues.indexOf(value)
+      if (checkedValueIdx > -1) {
+        currentValues.splice(checkedValueIdx, 1)
+      } else {
+        currentValues.push(value)
+      }
+      return {
+        ...prevState,
+        values: {...prevState.values, [name]: currentValues}
+      }
+    })
   }
 
-  onSubmit = async () => {
-    const {password, name, street, zip, phone, email} = this.state
+  validate = e => {
+    if (e && e.target.name) {
+      const {name, value} = e.target
+      const valid = Validators.validate(name, value)
+      this.setState(prevState => ({
+        errors: {...prevState.errors, [name]: valid}
+      }))
+    } else {
+      const {values} = this.state
+      const errors = Object.entries(values).reduce((acc, [key, value]) => {
+        acc[key] = Validators.validate(key, value)
+        return acc
+      }, {})
+      this.setState({errors})
+      return Object.values(errors).filter(e => e).length === 0
+    }
+  }
+
+  onSubmit = () => {
+    const {
+      password,
+      name,
+      street,
+      zip,
+      phone,
+      email,
+      city,
+      state,
+      organic,
+      weekday,
+      timeOfDay
+    } = this.state.values
     const data = {
       name,
       street,
       zip,
       phone,
-      email
+      email,
+      city,
+      state,
+      organic,
+      weekday,
+      timeOfDay
     }
+    const valid = this.validate()
+    if (valid) {
+      this.submitForm(data, password)
+    }
+  }
+
+  submitForm = async (data, password) => {
     const [response, signupError] = await api.signup(data, password)
+    console.log({response, signupError})
     if (signupError) {
       this.setState({signupError})
     } else if (response) {
@@ -46,11 +152,11 @@ export default class SignUp extends Component {
   }
 
   render() {
-    const {emailError, signupError} = this.state
-    const errorDiv = emailError ? <div id="emailError">{emailError}</div> : null
+    const {errors, signupError} = this.state
     const signupErrorDiv = signupError ? (
       <div id="emailError">{Strings.firebaseErrorMessage(signupError)}</div>
     ) : null
+    console.log(this.state)
     return (
       <div className="container">
         <div className="row">
@@ -61,94 +167,129 @@ export default class SignUp extends Component {
                 This is the information SoSA will use to get in touch with you.
               </h5>
               <form id="registrationForm" onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    onChange={this.onInputChange}
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    placeholder="Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="up-email">Email address</label>
-                  <input
-                    onChange={this.onInputChange}
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    placeholder="Email"
-                    onBlur={this.validateEmail}
-                  />
-                  {errorDiv}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="up-password">Password</label>
-                  <input
-                    type="password"
-                    onChange={this.onInputChange}
-                    className="form-control"
-                    id="password"
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">Phone number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    onChange={this.onInputChange}
-                    id="phone"
-                    placeholder="(615) 555-5555"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="street">Street Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
-                    id="street"
-                    placeholder="123 Main Street"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="city">City</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
-                    id="city"
-                    placeholder="Nashville"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="state">State</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={this.onInputChange}
-                    id="state"
-                    placeholder="Tennessee"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="zip">Zip Code</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={this.onInputChange}
-                    id="zip"
-                    placeholder="37211"
-                  />
-                </div>
+                <Input
+                  id="name"
+                  label="Name"
+                  placeholder="Name"
+                  onChange={this.onInputChange}
+                  error={errors.name && Validators.name.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="email"
+                  label="Email address"
+                  placeholder="Email"
+                  onChange={this.onInputChange}
+                  error={errors.email && Validators.email.message}
+                  type="email"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="password"
+                  label="Password"
+                  placeholder="Password"
+                  onChange={this.onInputChange}
+                  error={errors.password && Validators.password.message}
+                  type="password"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="phone"
+                  label="Phone number"
+                  placeholder="(615) 555-5555"
+                  onChange={this.onInputChange}
+                  error={errors.phone && Validators.phone.message}
+                  type="tel"
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="street"
+                  label="Street Address"
+                  placeholder="123 Main Street"
+                  onChange={this.onInputChange}
+                  error={errors.street && Validators.street.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="city"
+                  label="City"
+                  placeholder="Nashville"
+                  onChange={this.onInputChange}
+                  error={errors.city && Validators.city.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="state"
+                  label="State"
+                  placeholder="Tennessee"
+                  onChange={this.onInputChange}
+                  error={errors.state && Validators.state.message}
+                  required
+                  onBlur={this.validate}
+                />
+                <Input
+                  id="zip"
+                  label="Zip Code"
+                  placeholder="37211"
+                  onChange={this.onInputChange}
+                  error={errors.zip && Validators.zip.message}
+                  type="number"
+                  required
+                  onBlur={this.validate}
+                />
+                <RadioGroup
+                  onChange={this.onInputChange}
+                  options={[
+                    {value: true, label: 'Organic'},
+                    {value: false, label: 'Inorganic'}
+                  ]}
+                  name={'organic'}
+                  label={'Is this an organic farm?'}
+                  vertical
+                  required
+                />
+                <CheckboxGroup
+                  onChange={this.onCheckboxChange}
+                  options={[
+                    {value: 'monday', label: 'Monday'},
+                    {value: 'tuesday', label: 'Tuesday'},
+                    {value: 'wednesday', label: 'Wednesday'},
+                    {value: 'thursday', label: 'Thursday'},
+                    {value: 'friday', label: 'Friday'},
+                    {value: 'saturday', label: 'Saturday'},
+                    {value: 'sunday', label: 'Sunday'}
+                  ]}
+                  name={'weekday'}
+                  label={'What days of the week are best for pickup?'}
+                  error={errors.weekday && Validators.weekday.message}
+                  vertical
+                  required
+                />
+                <CheckboxGroup
+                  onChange={this.onCheckboxChange}
+                  options={[
+                    {value: 'morning', label: 'Morning'},
+                    {value: 'afternoon', label: 'Afternoon'},
+                    {value: 'evening', label: 'Evening'}
+                  ]}
+                  name={'timeOfDay'}
+                  label={'What time of day is best for pickup?'}
+                  error={errors.timeOfDay && Validators.timeOfDay.message}
+                  vertical
+                  required
+                />
               </form>
               {signupErrorDiv}
               <button
                 id="register-btn"
                 type="submit"
-                className="btn btn-default"
+                className="btn btn-primary"
                 onClick={this.onSubmit}
               >
                 Submit
