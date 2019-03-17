@@ -41,7 +41,16 @@ class Input extends React.Component {
   }
 
   render() {
-    const {id, label, placeholder, onChange, type, error, required} = this.props
+    const {
+      id,
+      label,
+      placeholder,
+      onChange,
+      type,
+      error,
+      required,
+      value
+    } = this.props
     const className = error ? 'form-control is-invalid' : 'form-control'
     return (
       <div className="form-group">
@@ -56,6 +65,7 @@ class Input extends React.Component {
           required={required}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
+          value={value}
         />
         {this.renderError()}
       </div>

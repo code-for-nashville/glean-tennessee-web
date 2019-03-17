@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 
 const UserContext = React.createContext({
-  user: {}
+  user: null,
+  userProfile: null,
+  updateContext: () => {}
 })
 
 export function withUserContextConsumer(WrappedComponent) {
@@ -9,7 +11,7 @@ export function withUserContextConsumer(WrappedComponent) {
     render() {
       return (
         <UserContext.Consumer>
-          {({user}) => <WrappedComponent {...this.props} user={user} />}
+          {context => <WrappedComponent {...this.props} {...context} />}
         </UserContext.Consumer>
       )
     }

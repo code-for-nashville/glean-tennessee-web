@@ -2,7 +2,6 @@
 
 import React from 'react'
 import {shallow} from 'enzyme'
-import {Images} from '../../../src/constants'
 import {Input} from '../../../src/components'
 
 const DefaultInputs = {

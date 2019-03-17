@@ -1,5 +1,6 @@
 import React from 'react'
 import history from '../../navigation/history'
+import {classnames} from '../../helpers'
 
 class Link extends React.Component {
   transition = event => {
@@ -15,9 +16,14 @@ class Link extends React.Component {
   }
 
   render() {
-    const {children} = this.props
+    const {children, className} = this.props
+    const active = this.props.href === window.location.pathname ? 'active' : ''
     return (
-      <a onClick={this.transition} {...this.props}>
+      <a
+        onClick={this.transition}
+        {...this.props}
+        className={classnames(className, active)}
+      >
         {children}
       </a>
     )

@@ -12,7 +12,7 @@ class Navigation extends Component {
 
   unauthenticatedLinks = () => [
     <Link
-      className="nav-item nav-link active"
+      className="nav-item nav-link"
       href="/login"
       children={'Log In'}
       key="login"
@@ -36,10 +36,17 @@ class Navigation extends Component {
       callBack={this.closeMenu}
     />,
     <Link
-      className="nav-item nav-link active"
+      className="nav-item nav-link"
       onClick={api.logout}
       children={'Log Out'}
       key="logout"
+      callBack={this.closeMenu}
+    />,
+    <Link
+      className="nav-item nav-link"
+      href="/profile"
+      children={'Profile'}
+      key="profile"
       callBack={this.closeMenu}
     />
   ]
