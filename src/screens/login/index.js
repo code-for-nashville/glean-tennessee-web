@@ -16,7 +16,7 @@ export default class Login extends Component {
   }
 
   validateEmail = email => {
-    return !Regex.testEmail(email) ? 'Enter a valid email address' : ''
+    return !Regex.email.test(email) ? 'Enter a valid email address' : ''
   }
 
   onInputChange = e => {
@@ -85,7 +85,7 @@ export default class Login extends Component {
             <button
               id="login-btn"
               type="submit"
-              className="btn btn-default btn-sub"
+              className="btn btn-primary btn-sub"
               onClick={this.onSubmit}
             >
               Sign in

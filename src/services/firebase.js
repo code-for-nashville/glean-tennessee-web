@@ -13,7 +13,6 @@ firebase.initializeApp(config)
 
 const FirebaseService = () => {
   const signup = ({email, password}) => {
-    console.log({email, password})
     return new Promise((resolve, reject) => {
       firebase
         .auth()
@@ -56,7 +55,7 @@ const FirebaseService = () => {
   }
 
   // data: { name: string, street: string, city: string, state: string, zip: string, phone: string, email: string, is_organic: boolean, uid: string, uid: string }
-  const addProfile = ({data}) =>
+  const updateProfile = data => {
     new Promise((resolve, reject) => {
       firebase
         .database()
@@ -65,10 +64,11 @@ const FirebaseService = () => {
           if (error) {
             reject(error)
           } else {
-            resolve(true)
+            resolve(data)
           }
         })
     })
+  }
 
   const getUserProfile = () =>
     firebase
@@ -92,7 +92,7 @@ const FirebaseService = () => {
     signup,
     login,
     logout,
-    addProfile,
+    updateProfile,
     getUserProfile,
     sendMessage
   }

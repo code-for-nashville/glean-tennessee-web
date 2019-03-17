@@ -1,7 +1,15 @@
 import * as React from 'react'
 import {classnames} from '../../helpers'
 
-const Radio = ({onChange, value, name, layoutClass, inputClass, label}) => (
+const Radio = ({
+  onChange,
+  value,
+  name,
+  layoutClass,
+  inputClass,
+  label,
+  checked
+}) => (
   <div className={classnames('form-check', layoutClass)}>
     <input
       className={inputClass}
@@ -10,8 +18,9 @@ const Radio = ({onChange, value, name, layoutClass, inputClass, label}) => (
       name={name}
       value={value}
       onChange={onChange}
+      checked={checked}
     />
-    <label className="form-check-label" for={name}>
+    <label className="form-check-label" htmlFor={name}>
       {label}
     </label>
   </div>
@@ -31,6 +40,10 @@ class RadioGroup extends React.Component {
     return null
   }
 
+  isChecked(option, value) {
+    return option === value
+  }
+
   render() {
     const {
       error,
@@ -39,7 +52,8 @@ class RadioGroup extends React.Component {
       options,
       vertical,
       required,
-      name
+      name,
+      value
     } = this.props
     const layoutClass = vertical ? 'form-check-inline' : ''
     const inputClass = error
@@ -57,6 +71,8 @@ class RadioGroup extends React.Component {
             layoutClass={layoutClass}
             inputClass={inputClass}
             key={`${name}-${idx}`}
+            value={option.value}
+            checked={this.isChecked(option.value, value)}
           />
         ))}
         {this.renderError()}

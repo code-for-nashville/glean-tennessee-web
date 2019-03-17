@@ -21,29 +21,30 @@ export const login = async (email, password) => {
 
 export const signup = async (data, password) => {
   // Create User
-  console.log({data, password})
   const [signupResponse, error] = await makeApiCall(FirebaseService.signup, {
     email: data.email,
     password: password
   })
+
   if (error) {
     return [signupResponse, error]
   }
   data.uid = signupResponse.user.uid
   // Update User Info
-  const [addProfileResponse, addProfileError] = await makeApiCall(
-    FirebaseService.addProfile,
-    {data}
-  )
-
+  const [updateProfileResponse, updateProfileError] = await updateProfile(data)
   if (error) {
-    return [addProfileResponse, addProfileError]
+    return [updateProfileResponse, updateProfileError]
   }
 
   // Get User Info
+  const [getUserResponse, getUserError] = await userProfile(data.uid)
+  return [getUserResponse, getUserError]
+}
+
+export const updateProfile = async data => {
   const [getUserResponse, getUserError] = await makeApiCall(
-    FirebaseService.getUserProfile,
-    data.uid
+    FirebaseService.updateProfile,
+    data
   )
   let response
   if (getUserResponse) {
@@ -51,6 +52,9 @@ export const signup = async (data, password) => {
   }
   return [response, getUserError]
 }
+
+export const userProfile = async uid =>
+  await makeApiCall(FirebaseService.getUserProfile, uid)
 
 export const logout = async () => await makeApiCall(FirebaseService.logout)
 

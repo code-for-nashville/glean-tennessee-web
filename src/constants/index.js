@@ -13,7 +13,7 @@ const Strings = {
         break
       default:
         // don't set an error if not called with a proper error object
-        if (error && error.code) {
+        if (error) {
           code = 'Server error.'
         }
         break
