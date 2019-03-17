@@ -1,10 +1,8 @@
 import * as React from 'react'
 
-class Input extends React.Component {
+class Select extends React.Component {
   static defaultProps = {
-    type: 'text',
-    required: false,
-    placeholder: ''
+    required: false
   }
 
   constructor(props) {
@@ -41,37 +39,35 @@ class Input extends React.Component {
     return null
   }
 
+  renderOptions = () => {
+    const {options} = this.props
+    return options.map(o => (
+      <option key={o.value} value={o.value}>
+        {o.label}
+      </option>
+    ))
+  }
+
   render() {
-    const {
-      id,
-      label,
-      placeholder,
-      onChange,
-      type,
-      error,
-      required,
-      value
-    } = this.props
+    const {id, label, onChange, error, required, value} = this.props
     const className = error ? 'form-control is-invalid' : 'form-control'
     return (
       <div className="form-group">
         <label htmlFor={id}>{label}</label>
-        <input
-          onChange={onChange}
-          type={type}
+        <select
+          name={id}
           className={className}
           id={id}
-          placeholder={placeholder}
-          name={id}
-          required={required}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
+          onChange={onChange}
           value={value}
-        />
+          required={required}
+        >
+          {this.renderOptions()}
+        </select>
         {this.renderError()}
       </div>
     )
   }
 }
 
-export default Input
+export default Select

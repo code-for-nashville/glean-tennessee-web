@@ -6,6 +6,8 @@ import CheckboxGroup from './checkbox'
 import RadioGroup from './radio'
 import Footer from './footer'
 import ProfileForm from './profile-form'
+import Select from './select'
+import Textarea from './textarea'
 
 export {
   CheckboxGroup,
@@ -15,5 +17,7 @@ export {
   Navigation,
   ProfileForm,
   RadioGroup,
+  Select,
+  Textarea,
   Toast
 }

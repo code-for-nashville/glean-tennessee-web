@@ -13,7 +13,7 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
     .ref('/users/' + uid)
     .once('value')
     .then(snapshot => {
-      const {details: message } = data
+      const {details: message, bestByDate, location, picked, volume, unit } = data
       const { email, name, phone, street } = snapshot.val()
       const emailConfig = {
         to: 'sosa.glean.tn@gmail.com',
@@ -24,7 +24,13 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
           message,
           phone,
           address: street,
-          email
+          email,
+          bestByDate,
+          location,
+          picked,
+          volume, 
+          unit
+
         }
       }
       SendGrid.send(emailConfig)
