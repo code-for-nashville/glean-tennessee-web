@@ -1,8 +1,7 @@
 import * as React from 'react'
 
-class Input extends React.Component {
+class TextArea extends React.Component {
   static defaultProps = {
-    type: 'text',
     required: false,
     placeholder: ''
   }
@@ -47,7 +46,6 @@ class Input extends React.Component {
       label,
       placeholder,
       onChange,
-      type,
       error,
       required,
       value
@@ -56,9 +54,8 @@ class Input extends React.Component {
     return (
       <div className="form-group">
         <label htmlFor={id}>{label}</label>
-        <input
+        <textarea
           onChange={onChange}
-          type={type}
           className={className}
           id={id}
           placeholder={placeholder}
@@ -74,4 +71,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input
+export default TextArea

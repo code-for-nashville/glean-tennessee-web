@@ -37,16 +37,16 @@ class Navigation extends Component {
     />,
     <Link
       className="nav-item nav-link"
-      onClick={api.logout}
-      children={'Log Out'}
-      key="logout"
+      href="/profile"
+      children={'Profile'}
+      key="profile"
       callBack={this.closeMenu}
     />,
     <Link
       className="nav-item nav-link"
-      href="/profile"
-      children={'Profile'}
-      key="profile"
+      onClick={api.logout}
+      children={'Log Out'}
+      key="logout"
       callBack={this.closeMenu}
     />
   ]

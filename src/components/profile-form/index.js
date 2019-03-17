@@ -177,7 +177,7 @@ export default class ProfileForm extends Component {
 
   renderPassword = () => {
     const {showPassword} = this.props
-    const {errors} = this.state
+    const {errors, values} = this.state
     if (showPassword) {
       return (
         <Input
@@ -189,6 +189,7 @@ export default class ProfileForm extends Component {
           type="password"
           required
           onBlur={this.validate}
+          value={values.password}
         />
       )
     }
