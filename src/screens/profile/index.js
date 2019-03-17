@@ -13,8 +13,7 @@ class Profile extends Component {
 
   submitForm = async data => {
     const {user, updateContext} = this.props
-    const [response, updateError] = await api.updateProfile({
-      // eslint-disable-line no-unused-vars
+    const [, updateError] = await api.updateProfile({
       ...data,
       uid: user.uid
     })
