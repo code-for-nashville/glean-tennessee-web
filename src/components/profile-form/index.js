@@ -229,7 +229,7 @@ export default class ProfileForm extends Component {
         <Input
           id="phone"
           label="Phone number"
-          placeholder="(615) 555-5555"
+          placeholder="Phone Number"
           onChange={this.onInputChange}
           error={errors.phone && Validators.phone.message}
           type="tel"
@@ -240,7 +240,7 @@ export default class ProfileForm extends Component {
         <Input
           id="street"
           label="Street Address"
-          placeholder="123 Main Street"
+          placeholder="Street Address"
           onChange={this.onInputChange}
           error={errors.street && Validators.street.message}
           required
@@ -250,7 +250,7 @@ export default class ProfileForm extends Component {
         <Input
           id="city"
           label="City"
-          placeholder="Nashville"
+          placeholder="City"
           onChange={this.onInputChange}
           error={errors.city && Validators.city.message}
           required
@@ -260,7 +260,7 @@ export default class ProfileForm extends Component {
         <Input
           id="state"
           label="State"
-          placeholder="Tennessee"
+          placeholder="State"
           onChange={this.onInputChange}
           error={errors.state && Validators.state.message}
           required
@@ -270,7 +270,7 @@ export default class ProfileForm extends Component {
         <Input
           id="zip"
           label="Zip Code"
-          placeholder="37211"
+          placeholder="Zip Code"
           onChange={this.onInputChange}
           error={errors.zip && Validators.zip.message}
           type="number"
