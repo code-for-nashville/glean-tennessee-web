@@ -25,3 +25,11 @@ To deploy/ update the function run
 ```$ firebase deploy --only functions```
 
 The function code lives in the `functions` dir.
+
+
+## Contributers:
+
+Cory Rice
+Jeannie Hunter
+Emily Lemmon
+Andrew Leverette
