@@ -1,5 +1,8 @@
-DS_Store
+.DS_Store
 node_modules
 .vscode/
 
 yarn-error.log
+*.log
+package-lock.json
+build

@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #05010F;
+    background: #bac7a6;
+}

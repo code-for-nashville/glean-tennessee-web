@@ -1,11 +1,35 @@
 # Glean Tennessee
+Preview [website](https://gleantn-1794b.firebaseapp.com/#)
 
 This project was created during Nashville's Civic Day of Hacking to allow farmers and other food providers to notify the [Society of St. Andrew](endhunger.org) of food donations available for harvest and pick up.
 
-**We are currently working on a migration to React. Tickets listed in the project backlog refer to work to be done on the `feature/react-migrate` branch of the project. Please check out this branch in order to contribute to that feature migration and those tickets.**
+This is drawn from the [SoSAGleanTN repo](https://github.com/SoSAGleanTNorg/GleanTnWeb).
 
-Questions? Find us on the Code for Nashville Slack channel `society-of-st-andrews`. (You can sign up for Slack from [the CfN website](codefornashville.org). )
+## Development
 
-This is originally drawn from the [SoSAGleanTN repo](https://github.com/SoSAGleanTNorg/GleanTnWeb).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-The currently deployed firebase app built with jquery is available here: [Donor Connection Firebase App](https://gleantn-1794b.firebaseapp.com)
+To start:
+
+```
+npm install
+npm start
+```
+
+Please fork and create pull requests to respond to issues.
+
+## Firebase Functions
+Emails are sent using Sendgrid and firebase functions.
+To deploy/ update the function run 
+
+```$ firebase deploy --only functions```
+
+The function code lives in the `functions` dir.
+
+
+## Contributers:
+
+Cory Rice
+Jeannie Hunter
+Emily Lemmon
+Andrew Leverette
