@@ -14,13 +14,13 @@ const Radio = ({
     <input
       className={inputClass}
       type="radio"
-      id={name}
+      id={`${name}-${value}`}
       name={name}
       value={value}
       onChange={onChange}
       checked={checked}
     />
-    <label className="form-check-label" htmlFor={name}>
+    <label className="form-check-label" htmlFor={`${name}-${value}`}>
       {label}
     </label>
   </div>
