@@ -27,7 +27,7 @@ To deploy/ update the function run
 The function code lives in the `functions` dir.
 
 
-## Contributers:
+## Contributors:
 
 - Cory Rice
 - Jeannie Hunter
