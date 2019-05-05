@@ -29,7 +29,7 @@ The function code lives in the `functions` dir.
 
 ## Contributors:
 
-- Cory Rice
+- Corey Rice
 - Jeannie Hunter
 - Emily Lemmon
 - Kevin Huber
