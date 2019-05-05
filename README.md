@@ -32,4 +32,6 @@ The function code lives in the `functions` dir.
 - Cory Rice
 - Jeannie Hunter
 - Emily Lemmon
+- Kevin Huber
+- Shu Sajid
 - Andrew Leverette

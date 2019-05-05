@@ -16,7 +16,7 @@ exports.sendMessage = Functions.https.onCall((data, context) => {
       const {details: message, bestByDate, location, picked, volume, unit } = data
       const { email, name, phone, street } = snapshot.val()
       const emailConfig = {
-        to: 'sosa.glean.tn@gmail.com',
+        to: 'tn-glean@endhunger.org, tennessee@endhunger.org',
         from: 'sosa.glean.tn@gmail.com',
         templateId: 'd-b1f6d9ac6715453d9c7ba5b3edfbe6a2',
         dynamic_template_data: {
