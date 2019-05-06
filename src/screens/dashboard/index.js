@@ -22,12 +22,11 @@ export default class Dashboard extends Component {
   }
 
   validate = () => {
-    const {location, bestByDate} = this.state.values
-    const locationError = location.length === 0 || null
+    const { bestByDate } = this.state.values
     const bestByError = bestByDate.length === 0 || null
-    if (locationError || bestByError) {
+    if (bestByError) {
       this.setState({
-        errors: {location: locationError, bestByDate: bestByError}
+        errors: { bestByDate: bestByError }
       })
       return false
     }
@@ -93,8 +92,6 @@ export default class Dashboard extends Component {
                     placeholder="Direction / address / location information"
                     value={location}
                     onChange={this.onChange}
-                    required
-                    error={errors.location && 'This field is required'}
                   />
                 </div>
                 <div className="form-group">
