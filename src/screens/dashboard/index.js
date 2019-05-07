@@ -22,11 +22,11 @@ export default class Dashboard extends Component {
   }
 
   validate = () => {
-    const { bestByDate } = this.state.values
+    const {bestByDate} = this.state.values
     const bestByError = bestByDate.length === 0 || null
     if (bestByError) {
       this.setState({
-        errors: { bestByDate: bestByError }
+        errors: {bestByDate: bestByError}
       })
       return false
     }
