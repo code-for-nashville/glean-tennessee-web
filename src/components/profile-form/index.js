@@ -138,7 +138,7 @@ export default class ProfileForm extends Component {
     }
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault()
     const {
       password,
