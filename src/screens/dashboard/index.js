@@ -161,7 +161,7 @@ export default class Dashboard extends Component {
                 </div>
                 <button
                   id="submit-btn"
-                  type="button"
+                  type="submit"
                   className="form-control btn btn-primary btn-block btn-lg"
                   onClick={this.submit}
                 >
