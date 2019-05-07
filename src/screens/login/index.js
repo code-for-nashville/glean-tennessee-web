@@ -91,7 +91,7 @@ export default class Login extends Component {
               >
                 Sign in
               </button>
-          </form>
+            </form>
             <p className="sign-up-offer">
               First time with the app?
               <Link
