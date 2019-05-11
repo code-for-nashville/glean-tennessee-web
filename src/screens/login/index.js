@@ -24,7 +24,8 @@ export default class Login extends Component {
     this.setState({[name]: value})
   }
 
-  onSubmit = async () => {
+  onSubmit = async e => {
+    e.preventDefault()
     const {email, password} = this.state
     if (email && password) {
       const [response, loginError] = await api.login(email, password)
@@ -70,26 +71,27 @@ export default class Login extends Component {
                 {emailErrorDiv}
               </label>
             </div>
-            <div className="form-group">
-              <label htmlFor="in-password">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                id="in-password"
-                placeholder="Password"
-                onChange={this.onInputChange}
-              />
-            </div>
-            {loginErrorDiv}
-            <button
-              id="login-btn"
-              type="submit"
-              className="btn btn-primary btn-sub"
-              onClick={this.onSubmit}
-            >
-              Sign in
-            </button>
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <label htmlFor="in-password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  id="in-password"
+                  placeholder="Password"
+                  onChange={this.onInputChange}
+                />
+              </div>
+              {loginErrorDiv}
+              <button
+                id="login-btn"
+                type="submit"
+                className="btn btn-primary btn-sub"
+              >
+                Sign in
+              </button>
+            </form>
             <p className="sign-up-offer">
               First time with the app?
               <Link

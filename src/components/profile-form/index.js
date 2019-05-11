@@ -138,7 +138,8 @@ export default class ProfileForm extends Component {
     }
   }
 
-  onSubmit = () => {
+  onSubmit = e => {
+    e.preventDefault()
     const {
       password,
       name,
@@ -325,7 +326,7 @@ export default class ProfileForm extends Component {
         {signupErrorDiv}
         <button
           id="register-btn"
-          type="button"
+          type="submit"
           className="btn btn-primary"
           onClick={this.onSubmit}
         >
