@@ -6,3 +6,5 @@ yarn-error.log
 *.log
 package-lock.json
 build
+
+.firebase
