@@ -16,6 +16,8 @@ npm install
 npm start
 ```
 
+Pull requests can be opened into the `dev` branch.
+
 Please fork and create pull requests to respond to issues.
 
 ## Firebase Functions
