@@ -1,21 +1,21 @@
-import React, {Component} from 'react'
-import {CheckboxGroup, Input, RadioGroup} from '../../components'
-import Strings, {Regex} from '../../constants'
+import React, { Component } from 'react'
+import { CheckboxGroup, Input, RadioGroup } from '../../components'
+import Strings, { Regex } from '../../constants'
 
 const Validators = {
-  name: {regex: Regex.notBlank, message: 'Please enter your name.'},
-  street: {regex: Regex.notBlank, message: 'Please enter your street address.'},
-  city: {regex: Regex.notBlank, message: 'Please enter your city.'},
-  state: {regex: Regex.notBlank, message: 'Please enter your state.'},
-  zip: {regex: Regex.zip, message: 'Please enter your zipcode.'},
-  phone: {regex: Regex.phone, message: 'Please enter a valid phone number.'},
-  email: {regex: Regex.email, message: 'Please enter a valid email.'},
+  name: { regex: Regex.notBlank, message: 'Please enter your name.' },
+  street: { regex: Regex.notBlank, message: 'Please enter your street address.' },
+  city: { regex: Regex.notBlank, message: 'Please enter your city.' },
+  state: { regex: Regex.notBlank, message: 'Please enter your state.' },
+  zip: { regex: Regex.zip, message: 'Please enter your zipcode.' },
+  phone: { regex: Regex.phone, message: 'Please enter a valid phone number.' },
+  email: { regex: Regex.email, message: 'Please enter a valid email.' },
   password: {
     regex: Regex.password,
     message: 'Please enter a password at least 8 characters long which contains only letters (upper or lowercase) and numbers.'
   },
-  weekday: {minLength: 1, message: 'Please select at least one day.'},
-  timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
+  weekday: { minLength: 1, message: 'Please select at least one day.' },
+  timeOfDay: { minLength: 1, message: 'Please select at least one time of day.' },
   validate(key, value) {
     const validator = this[key]
     let valid = false
@@ -37,7 +37,7 @@ export default class ProfileForm extends Component {
 
   constructor(props) {
     super(props)
-    const {defaultValues} = props
+    const { defaultValues } = props
     const {
       name = '',
       street = '',
@@ -84,22 +84,22 @@ export default class ProfileForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {defaultValues} = this.props
+    const { defaultValues } = this.props
     if (!prevProps.defaultValues && defaultValues) {
-      this.setState({values: defaultValues})
+      this.setState({ values: defaultValues })
     }
   }
 
   onInputChange = e => {
-    const {value, name} = e.target
+    const { value, name } = e.target
     this.setState(prevState => ({
       ...prevState,
-      values: {...prevState.values, [name]: value}
+      values: { ...prevState.values, [name]: value }
     }))
   }
 
   onCheckboxChange = e => {
-    const {value, name} = e.target
+    const { value, name } = e.target
     this.setState(prevState => {
       const currentValues = prevState.values[name]
       const checkedValueIdx = currentValues.indexOf(value)
@@ -110,21 +110,21 @@ export default class ProfileForm extends Component {
       }
       return {
         ...prevState,
-        values: {...prevState.values, [name]: currentValues}
+        values: { ...prevState.values, [name]: currentValues }
       }
     })
   }
 
   validate = e => {
-    const {showPassword} = this.props
+    const { showPassword } = this.props
     if (e && e.target.name) {
-      const {name, value} = e.target
+      const { name, value } = e.target
       const valid = Validators.validate(name, value)
       this.setState(prevState => ({
-        errors: {...prevState.errors, [name]: valid}
+        errors: { ...prevState.errors, [name]: valid }
       }))
     } else {
-      const {values} = this.state
+      const { values } = this.state
       const errors = Object.entries(values).reduce((acc, [key, value]) => {
         acc[key] = Validators.validate(key, value)
         return acc
@@ -133,7 +133,7 @@ export default class ProfileForm extends Component {
       if (showPassword === false) {
         errors.password = false
       }
-      this.setState({errors})
+      this.setState({ errors })
       return Object.values(errors).filter(e => e).length === 0
     }
   }
@@ -172,13 +172,13 @@ export default class ProfileForm extends Component {
   }
 
   submitForm = async (data, password) => {
-    const {onSubmit} = this.props
+    const { onSubmit } = this.props
     await onSubmit(data, password)
   }
 
   renderPassword = () => {
-    const {showPassword} = this.props
-    const {errors, values} = this.state
+    const { showPassword } = this.props
+    const { errors, values } = this.state
     if (showPassword) {
       return (
         <Input
@@ -198,8 +198,8 @@ export default class ProfileForm extends Component {
   }
 
   render() {
-    const {submitText, formError} = this.props
-    const {errors, values} = this.state
+    const { submitText, formError } = this.props
+    const { errors, values } = this.state
     const signupErrorDiv = formError ? (
       <div id="emailError">{Strings.firebaseErrorMessage(formError)}</div>
     ) : null
@@ -282,8 +282,8 @@ export default class ProfileForm extends Component {
         <RadioGroup
           onChange={this.onInputChange}
           options={[
-            {value: 'organic', label: 'Organic'},
-            {value: 'inorganic', label: 'Inorganic'}
+            { value: 'organic', label: 'Organic' },
+            { value: 'inorganic', label: 'Inorganic' }
           ]}
           name={'organic'}
           label={'Is this an organic farm?'}
@@ -294,13 +294,13 @@ export default class ProfileForm extends Component {
         <CheckboxGroup
           onChange={this.onCheckboxChange}
           options={[
-            {value: 'monday', label: 'Monday'},
-            {value: 'tuesday', label: 'Tuesday'},
-            {value: 'wednesday', label: 'Wednesday'},
-            {value: 'thursday', label: 'Thursday'},
-            {value: 'friday', label: 'Friday'},
-            {value: 'saturday', label: 'Saturday'},
-            {value: 'sunday', label: 'Sunday'}
+            { value: 'monday', label: 'Monday' },
+            { value: 'tuesday', label: 'Tuesday' },
+            { value: 'wednesday', label: 'Wednesday' },
+            { value: 'thursday', label: 'Thursday' },
+            { value: 'friday', label: 'Friday' },
+            { value: 'saturday', label: 'Saturday' },
+            { value: 'sunday', label: 'Sunday' }
           ]}
           name={'weekday'}
           label={'What days of the week are best for pickup?'}
@@ -312,9 +312,9 @@ export default class ProfileForm extends Component {
         <CheckboxGroup
           onChange={this.onCheckboxChange}
           options={[
-            {value: 'morning', label: 'Morning'},
-            {value: 'afternoon', label: 'Afternoon'},
-            {value: 'evening', label: 'Evening'}
+            { value: 'morning', label: 'Morning' },
+            { value: 'afternoon', label: 'Afternoon' },
+            { value: 'evening', label: 'Evening' }
           ]}
           name={'timeOfDay'}
           label={'What time of day is best for pickup?'}
