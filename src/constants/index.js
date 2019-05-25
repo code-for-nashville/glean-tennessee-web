@@ -12,7 +12,7 @@ const Strings = {
         code = error.message
         break
       default:
-        // don't set an error if not called with a proper error object 
+        // don't set an error if not called with a proper error object
         if (error) {
           code = 'Server error.'
         }
