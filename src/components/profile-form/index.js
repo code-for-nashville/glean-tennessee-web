@@ -12,8 +12,9 @@ const Validators = {
   email: {regex: Regex.email, message: 'Please enter a valid email.'},
   password: {
     regex: Regex.password,
-    message: 'Please enter a password at least 8 characters long which contains only letters (upper or lowercase) and numbers.'
-},
+    message:
+      'Please enter a password at least 8 characters long which contains only letters (upper or lowercase) and numbers.'
+  },
   weekday: {minLength: 1, message: 'Please select at least one day.'},
   timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
   validate(key, value) {
@@ -50,8 +51,7 @@ export default class ProfileForm extends Component {
       organic = 'inorganic',
       weekday = [],
       timeOfDay = []
-    } =
-      defaultValues || {}
+    } = defaultValues || {}
     this.state = {
       values: {
         name,
