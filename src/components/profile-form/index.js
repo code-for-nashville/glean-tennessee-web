@@ -51,7 +51,8 @@ export default class ProfileForm extends Component {
       organic = 'inorganic',
       weekday = [],
       timeOfDay = []
-    } = defaultValues || {}
+    } =
+      defaultValues || {}
     this.state = {
       values: {
         name,
