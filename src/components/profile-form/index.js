@@ -12,7 +12,8 @@ const Validators = {
   email: {regex: Regex.email, message: 'Please enter a valid email.'},
   password: {
     regex: Regex.password,
-    message: 'Please enter a password at least 8 characters long.'
+    message:
+      'Please enter a password at least 8 characters long which contains only letters (upper or lowercase) and numbers.'
   },
   weekday: {minLength: 1, message: 'Please select at least one day.'},
   timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
