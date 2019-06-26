@@ -27,5 +27,8 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "eslint-plugin-prettier": "^2.7.0"
+  },
+  "engines": {
+    "node": "8"
   }
 }
