@@ -1,9 +1,10 @@
 # Glean Tennessee
-Preview [website](https://gleantn-1794b.firebaseapp.com/#)
+Preview [website]
 
-This project was created during Nashville's Civic Day of Hacking to allow farmers and other food providers to notify the [Society of St. Andrew](endhunger.org) of food donations available for harvest and pick up.
+This project was created during [Code for Nashville]'s Day of Civic Hacking to allow farmers and other food providers to notify the [Society of St. Andrew] of food donations available for harvest and pick up.
 
 This is drawn from the [SoSAGleanTN repo](https://github.com/SoSAGleanTNorg/GleanTnWeb).
+
 
 ## Development
 
@@ -60,5 +61,7 @@ But in case something is wrong on their site, you try our [firebase deployment].
 - Shu Sajid
 - Andrew Leverette
 
+[Code for Nashville]: http://www.codefornashville.org/
 [firebase deployment]: https://glean-tennessee.firebaseapp.com/
 [website]: https://endhunger.org/crops
+[Society of St. Andrew]: https://endhunger.org
