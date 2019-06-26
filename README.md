@@ -10,12 +10,15 @@ This is drawn from the [SoSAGleanTN repo](https://github.com/SoSAGleanTNorg/Glea
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-To start:
+To start the app locally, do:
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
+
+> Note: For simple development and minor edits, you can actually use npm instead of yarn. You can even submit a pull request without installing yarn.
+> :warning: However, if you wish to do a deployment (usually only leads on the project), you will need to delete npm's package-lock.json and start over with yarn.
 
 Pull requests can be opened into the `dev` branch.
 
@@ -25,7 +28,7 @@ Please make sure you can do `yarn build` before you before submitting your pull 
 
 
 ## Deployment
-Only people with permissions to this firebase project will be able to deploy.
+Only people with permissions to this firebase project (usually project leads) will be able to deploy.
 
 To build and deploy, do:
 
@@ -36,6 +39,7 @@ firebase deploy
 
 This is only necessary for changes that affect the app (the UI). For changes to background functions, see below.
 
+> If you get warnings about firebase as a peer dependency when you do `yarn install` then you will need to manually `yarn add firebase-admin` before you deploy.
 
 ## Firebase Functions
 Emails are sent using Sendgrid and firebase functions.
