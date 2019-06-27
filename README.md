@@ -67,5 +67,5 @@ But in case something is wrong on their site, you try our [firebase deployment].
 
 [Code for Nashville]: http://www.codefornashville.org/
 [firebase deployment]: https://glean-tennessee.firebaseapp.com/
-[website]: https://endhunger.org/crops
+[website]: https://endhunger.org/crops.html
 [Society of St. Andrew]: https://endhunger.org
