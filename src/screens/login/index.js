@@ -108,7 +108,7 @@ export default class Login extends Component {
             <p>
               Our volunteers will arrive to glean your produce, and we will
               deliver the food to food banks, churches, pantries, and other
-              agencies at no cost to you.
+              agencies.
             </p>
             <p>
               Because of your contribution, hungry people will get fresh,
