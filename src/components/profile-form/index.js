@@ -13,7 +13,7 @@ const Validators = {
   password: {
     regex: Regex.password,
     message:
-      'Please enter a password at least 8 characters long which contains only letters (upper or lowercase) and numbers.'
+      'Please enter a password at least 8 characters long which contains only letters (upper or lowercase), numbers and special characters (from the number row of a typical keyboard).'
   },
   weekday: {minLength: 1, message: 'Please select at least one day.'},
   timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
