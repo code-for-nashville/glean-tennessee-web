@@ -12,8 +12,14 @@ const Validators = {
   email: {regex: Regex.email, message: 'Please enter a valid email.'},
   password: {
     regex: Regex.password,
-    message:
-      'Please enter a password at least 8 characters long which contains only letters (upper or lowercase), numbers and special characters (from the number row of a typical keyboard).'
+    message: (
+      <div>
+        Please use at least 8 (upper or lowercase) letters, numbers, and{' '}
+        <a href="https://www.owasp.org/index.php/Password_special_characters">
+          special characters
+        </a>.
+      </div>
+    )
   },
   weekday: {minLength: 1, message: 'Please select at least one day.'},
   timeOfDay: {minLength: 1, message: 'Please select at least one time of day.'},
