@@ -16,14 +16,12 @@ class Navigation extends Component {
       href="/login"
       children={'Log In'}
       key="login"
-      callBack={this.closeMenu}
     />,
     <Link
       key="register"
       className="nav-item nav-link"
       href="/signup"
       children={'Register'}
-      callBack={this.closeMenu}
     />
   ]
 
@@ -33,21 +31,18 @@ class Navigation extends Component {
       href="/dashboard"
       children={'Gleaning Request'}
       key="request"
-      callBack={this.closeMenu}
     />,
     <Link
       className="nav-item nav-link"
       href="/profile"
       children={'Profile'}
       key="profile"
-      callBack={this.closeMenu}
     />,
     <Link
       className="nav-item nav-link"
       onClick={api.logout}
       children={'Log Out'}
       key="logout"
-      callBack={this.closeMenu}
     />
   ]
 
