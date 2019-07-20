@@ -33,7 +33,8 @@ export default class Dashboard extends Component {
     return true
   }
 
-  submit = () => {
+  submit = (e: Event) => {
+    e.preventDefault()
     const valid = this.validate()
     if (valid) {
       this.submitForm()
