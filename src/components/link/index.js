@@ -16,12 +16,13 @@ class Link extends React.Component {
   }
 
   render() {
-    const {children, className} = this.props
+    const {children, className, ...rest} = this.props
     const active = this.props.href === window.location.pathname ? 'active' : ''
+    delete rest.callBack // Don't pass internal props to the DOM
     return (
       <a
         onClick={this.transition}
-        {...this.props}
+        {...rest}
         className={classnames(className, active)}
       >
         {children}
