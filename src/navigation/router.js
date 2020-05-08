@@ -1,12 +1,12 @@
 import React from 'react'
-import toRegex from 'path-to-regexp'
+import { pathToRegexp } from 'path-to-regexp'
 import App from '../App'
 
 // https://medium.freecodecamp.org/you-might-not-need-react-router-38673620f3d
 
 function matchURI(path, uri) {
   const keys = []
-  const pattern = toRegex(path, keys)
+  const pattern = pathToRegexp(path, keys)
   return pattern.exec(uri)
 }
 
